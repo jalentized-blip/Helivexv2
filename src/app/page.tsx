@@ -8,6 +8,7 @@ import ScrollingBanner from '@/components/ScrollingBanner';
 import EditableText from '@/components/EditableText';
 import { useAdmin } from '@/context/AdminContext';
 import { LabIcons, MoleculePattern } from '@/components/LabArt';
+import AssemblyLine from '@/components/AssemblyLine';
 
 export default function Home() {
   const { isEditMode } = useAdmin();
@@ -195,25 +196,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Crossing Scrolling Banners */}
-      <section className="relative h-[400px] md:h-[600px] bg-foreground overflow-hidden flex items-center justify-center mt-20">
-        <div className="relative w-full h-full flex items-center justify-center">
-          <div className="absolute w-[150vw] -rotate-[6deg] z-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
-            <ScrollingBanner 
-              backgroundColor="bg-primary" 
-              textColor="text-white/40" 
-              speed={40}
-            />
-          </div>
-          <div className="absolute w-[150vw] rotate-[6deg] z-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
-            <ScrollingBanner 
-              backgroundColor="bg-secondary" 
-              textColor="text-primary/40" 
-              reverse={true} 
-              speed={40}
-            />
-          </div>
-        </div>
+      {/* Peptide Synthesis Assembly Line */}
+      <section className="mt-20">
+        <AssemblyLine />
       </section>
     </div>
   );
