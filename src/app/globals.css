@@ -2,15 +2,15 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #111111;
-  --primary: #9e1b1b; /* Refined logo red */
+  --foreground: #1A1A1A;
+  --primary: #8B1A1A; /* Deep Logo Red */
   --primary-foreground: #ffffff;
-  --secondary: #f7b7b7; /* Refined logo pink */
-  --secondary-foreground: #9e1b1b;
-  --accent: #7c1414;
-  --muted: #f9f9f9;
-  --muted-foreground: #737373;
-  --border: #ececec;
+  --secondary: #F4A7A7; /* Soft Logo Pink */
+  --secondary-foreground: #4A0E0E; /* Darkest Logo Maroon */
+  --accent: #4A0E0E; /* Maroon for contrast */
+  --muted: #F9F3F3; /* Very faint pink/red tint for light backgrounds */
+  --muted-foreground: #666666;
+  --border: #E5E5E5;
 }
 
 @theme inline {
