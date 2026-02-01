@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint } from 'lucide-react';
 import { LabIcons } from '@/components/LabArt';
 
@@ -81,24 +82,27 @@ export default function MedicalCore() {
               </div>
 
               <Link href="/coa" className="relative z-10 block group">
-                <motion.div 
-                  whileHover={{ 
-                    scale: 1.15,
-                    rotate: [0, -2, 2, -2, 2, 0],
-                    x: [0, -1, 1, -1, 1, 0],
-                    y: [0, 1, -1, 1, -1, 0],
-                    filter: ['brightness(1) contrast(1)', 'brightness(1.1) contrast(1.05)', 'brightness(1) contrast(1)']
-                  }}
-                  transition={{ 
-                    rotate: { duration: 0.4, repeat: Infinity },
-                    x: { duration: 0.4, repeat: Infinity },
-                    y: { duration: 0.4, repeat: Infinity },
-                    scale: { type: "spring", stiffness: 400, damping: 25 },
-                    filter: { duration: 1, repeat: Infinity }
-                  }}
-                  className="text-primary w-40 h-40 cursor-pointer"
-                >
-                  <LabIcons.Vial />
+              <motion.div 
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -10,
+                  rotate: [0, -0.5, 0.5, -0.5, 0.5, 0],
+                  filter: ['brightness(1) contrast(1)', 'brightness(1.03) contrast(1.01)', 'brightness(1) contrast(1)']
+                }}
+                transition={{ 
+                  rotate: { duration: 1.2, repeat: Infinity },
+                  y: { type: "spring", stiffness: 300, damping: 25 },
+                  scale: { type: "spring", stiffness: 300, damping: 25 },
+                  filter: { duration: 2, repeat: Infinity }
+                }}
+                className="relative w-40 h-40 cursor-pointer flex items-center justify-center"
+              >
+                  <Image 
+                    src="/vial.png"
+                    alt="Research Vial"
+                    fill
+                    className="object-contain drop-shadow-[0_0_30px_rgba(158,27,27,0.2)]"
+                  />
                 </motion.div>
                 
                 {/* Click Hint */}
@@ -206,9 +210,14 @@ export default function MedicalCore() {
                   </div>
                 </div>
                 <div className="flex items-center gap-6 py-2">
-                  <div className="relative p-4 bg-white border border-black/5 rounded-2xl w-20 h-20 flex items-center justify-center shadow-inner">
-                    <div className="text-primary opacity-40 w-12 h-12">
-                      <LabIcons.Vial />
+                  <div className="relative p-4 bg-white border border-black/5 rounded-2xl w-20 h-20 flex items-center justify-center shadow-inner overflow-hidden">
+                    <div className="relative w-12 h-12 opacity-80">
+                      <Image 
+                        src="/vial.png"
+                        alt="Verified Vial"
+                        fill
+                        className="object-contain"
+                      />
                     </div>
                     <motion.div 
                       animate={{ top: ['15%', '85%', '15%'] }}

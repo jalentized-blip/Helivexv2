@@ -16,7 +16,7 @@ export const products: Product[] = [
     name: 'TESA',
     price: 45.00,
     priceRange: '$45.00 - $280.00',
-    image: '/next.svg', // Placeholder
+    image: '/vial.png',
     description: 'High purity TESA for research purposes.',
     category: 'Peptides',
     isBestSeller: true
@@ -26,7 +26,7 @@ export const products: Product[] = [
     name: 'VIP',
     price: 50.00,
     priceRange: '$50.00 - $350.00',
-    image: '/next.svg',
+    image: '/vial.png',
     description: 'Premium VIP research compound.',
     category: 'Peptides'
   },
@@ -35,7 +35,7 @@ export const products: Product[] = [
     name: 'MOTS-C',
     price: 45.00,
     priceRange: '$45.00 - $175.00',
-    image: '/next.svg',
+    image: '/vial.png',
     description: 'High-grade MOTS-C research peptide.',
     category: 'Peptides',
     isNew: true
@@ -45,7 +45,7 @@ export const products: Product[] = [
     name: 'MT-2',
     price: 40.00,
     priceRange: '$40.00 - $150.00',
-    image: '/next.svg',
+    image: '/vial.png',
     description: 'MT-2 peptide for scientific research.',
     category: 'Peptides'
   }

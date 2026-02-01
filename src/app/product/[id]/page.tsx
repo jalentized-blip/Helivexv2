@@ -2,8 +2,9 @@
 
 import { useParams } from 'next/navigation';
 import { products } from '@/data/products';
-import { Beaker, ShieldCheck, Zap, ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { ShieldCheck, Zap, ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function ProductPage() {
@@ -29,8 +30,16 @@ export default function ProductPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* Product Image */}
-        <div className="aspect-square bg-muted rounded-3xl border border-border flex items-center justify-center relative overflow-hidden">
-          <Beaker className="h-1/2 w-1/2 text-primary/20" />
+        <div className="aspect-square bg-zinc-50 rounded-3xl border border-border flex items-center justify-center relative overflow-hidden p-12">
+          <div className="relative w-full h-full">
+            <Image 
+              src={product.image} 
+              alt={product.name}
+              fill
+              className="object-contain drop-shadow-2xl"
+              priority
+            />
+          </div>
           {product.isNew && (
             <span className="absolute top-6 left-6 bg-secondary text-secondary-foreground text-xs font-bold px-3 py-1.5 rounded-full">NEW COMPOUND</span>
           )}

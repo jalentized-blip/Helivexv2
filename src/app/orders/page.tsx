@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Package, Clock, CheckCircle2, ChevronRight, Beaker } from 'lucide-react';
+import { Package, Clock, CheckCircle2, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function OrdersPage() {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -67,8 +68,13 @@ export default function OrdersPage() {
                 {order.items.map((item, i) => (
                   <div key={i} className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center text-primary/40">
-                        <Beaker className="h-6 w-6" />
+                      <div className="h-12 w-12 rounded-lg bg-zinc-50 border border-border relative overflow-hidden p-1">
+                        <Image 
+                          src="/vial.png"
+                          alt={item.name}
+                          fill
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <p className="font-bold">{item.name}</p>

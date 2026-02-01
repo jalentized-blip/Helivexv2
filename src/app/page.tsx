@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Zap, Beaker, ChevronDown, Camera, FlaskConical, Microscope, Activity } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, ChevronDown, Camera, FlaskConical, Microscope, Activity } from 'lucide-react';
 import { products } from '@/data/products';
 import ScrollingBanner from '@/components/ScrollingBanner';
 import EditableText from '@/components/EditableText';
@@ -87,8 +87,13 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center gap-4 p-6 bg-white rounded-lg shadow-sm">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                <Beaker className="h-6 w-6" />
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary relative overflow-hidden p-2.5">
+                <Image 
+                  src="/vial.png"
+                  alt="Research Use"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <div>
                 <h3 className="font-bold">RESEARCH USE ONLY</h3>
@@ -142,8 +147,15 @@ export default function Home() {
                     <div className="absolute top-0 right-0 w-8 h-[1px] bg-primary/20" />
                   </div>
                   
-                  <div className="absolute inset-0 flex items-center justify-center p-16 opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700">
-                     <Beaker className="h-full w-full text-primary" />
+                  <div className="absolute inset-0 flex items-center justify-center p-12 group-hover:scale-110 transition-all duration-700">
+                     <div className="relative w-full h-full">
+                       <Image 
+                         src={product.image} 
+                         alt={product.name}
+                         fill
+                         className="object-contain drop-shadow-2xl"
+                       />
+                     </div>
                   </div>
 
                   {/* Hover Overlay */}

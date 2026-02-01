@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { products } from '@/data/products';
-import { Beaker, SlidersHorizontal, ChevronDown } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 
 export default function ShopPage() {
   return (
@@ -26,15 +27,22 @@ export default function ShopPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
         {products.map((product) => (
           <div key={product.id} className="group flex flex-col">
-            <Link href={`/product/${product.id}`} className="aspect-[4/5] relative bg-muted rounded-2xl overflow-hidden border border-border transition-all group-hover:border-primary/50 mb-4">
+            <Link href={`/product/${product.id}`} className="aspect-[4/5] relative bg-zinc-50 rounded-2xl overflow-hidden border border-border transition-all group-hover:border-primary/50 mb-4 flex items-center justify-center">
               {product.isNew && (
                 <span className="absolute top-4 left-4 z-10 bg-secondary text-secondary-foreground text-[10px] font-bold px-2.5 py-1 rounded-full">NEW</span>
               )}
               {product.isBestSeller && (
                 <span className="absolute top-4 left-4 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-2.5 py-1 rounded-full">BEST SELLER</span>
               )}
-              <div className="absolute inset-0 flex items-center justify-center p-16 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700">
-                <Beaker className="h-full w-full text-primary" />
+              
+              <div className="relative w-4/5 h-4/5 group-hover:scale-110 transition-all duration-700">
+                <Image 
+                  src={product.image} 
+                  alt={product.name}
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                  priority
+                />
               </div>
               
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
