@@ -10,9 +10,19 @@ import { useAdmin } from '@/context/AdminContext';
 import { LabIcons, MoleculePattern } from '@/components/LabArt';
 import MedicalCore from '@/components/MedicalCore';
 import MissionSection from '@/components/MissionSection';
+import { updateHeroText } from '@/app/actions/updateHeroText';
 
 export default function Home() {
   const { isEditMode } = useAdmin();
+
+  const handleSaveHeroText = async (newText: string) => {
+    const result = await updateHeroText(newText);
+    if (result.success) {
+      if (result.message) alert(result.message);
+    } else {
+      alert('Failed to save text: ' + result.error);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -48,6 +58,7 @@ export default function Home() {
               tagName="p"
               content="Helivex Labs provides the scientific community with ultra-pure peptides and research compounds, setting the gold standard for integrity and reliability."
               className="text-lg md:text-xl text-zinc-500 max-w-lg leading-relaxed"
+              onSave={handleSaveHeroText}
             />
             <div className="flex flex-wrap gap-4 pt-4">
               <Link href="/shop" className="btn-primary flex items-center gap-2 group px-8 py-4 text-sm font-black tracking-widest">

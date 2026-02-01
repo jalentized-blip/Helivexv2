@@ -72,8 +72,20 @@ export default function MedicalCore() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await updateVialPosition(vialData);
-      alert('Vial transformation saved successfully!');
+      const result = await updateVialPosition(vialData);
+      if (result.success) {
+        if (result.message) {
+          alert(result.message);
+        } else {
+          alert('Vial transformation saved successfully!');
+        }
+        setTimeout(() => {
+          // Use a timestamp to bust the browser cache on reload
+          window.location.href = window.location.pathname + '?t=' + Date.now();
+        }, 500);
+      } else {
+        alert('Failed to save: ' + (result.error || 'Unknown error'));
+      }
     } catch (error) {
       console.error('Failed to save:', error);
       alert('Failed to save transformation.');

@@ -8,10 +8,10 @@ import { useAdmin } from '@/context/AdminContext';
 import { updateMissionPositions } from '@/app/actions/updateMissionPositions';
 
 // --- POSITION MARKERS ---
-const CARD_1_POS = /* CARD_1_START */ { x: 0, y: 0 } /* CARD_1_END */;
-const CARD_2_POS = /* CARD_2_START */ { x: 0, y: 0 } /* CARD_2_END */;
-const CARD_3_POS = /* CARD_3_START */ { x: 0, y: 0 } /* CARD_3_END */;
-const VIAL_DATA = /* VIAL_START */ { x: 0, y: 0, rotate: -25, scale: 1 } /* VIAL_END */;
+const CARD_1_POS = /* CARD_1_START */ { x: 145, y: 158 } /* CARD_1_END */;
+const CARD_2_POS = /* CARD_2_START */ { x: 563, y: -148 } /* CARD_2_END */;
+const CARD_3_POS = /* CARD_3_START */ { x: -118, y: -400 } /* CARD_3_END */;
+const VIAL_DATA = /* VIAL_START */ { x: 4, y: -42, rotate: 11, scale: 1.9 } /* VIAL_END */;
 
 export default function MissionSection() {
   const { isEditMode } = useAdmin();
@@ -80,8 +80,20 @@ export default function MissionSection() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await updateMissionPositions(positions, vialData);
-      alert('Positions and transformations saved successfully!');
+      const result = await updateMissionPositions(positions, vialData);
+      if (result.success) {
+        if (result.message) {
+          alert(result.message);
+        } else {
+          alert('Positions and transformations saved successfully!');
+        }
+        setTimeout(() => {
+          // Use a timestamp to bust the browser cache on reload
+          window.location.href = window.location.pathname + '?t=' + Date.now();
+        }, 500);
+      } else {
+        alert('Failed to save: ' + (result.error || 'Unknown error'));
+      }
     } catch (error) {
       console.error(error);
       alert('Failed to save changes.');
