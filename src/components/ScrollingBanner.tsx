@@ -40,6 +40,7 @@ interface ScrollingBannerProps {
   textColor?: string;
   speed?: number;
   reverse?: boolean;
+  className?: string;
 }
 
 export default function ScrollingBanner({
@@ -47,6 +48,7 @@ export default function ScrollingBanner({
   textColor = "text-white/40",
   speed = 30,
   reverse = false,
+  className = "",
 }: ScrollingBannerProps) {
   // Array of icons to display
   const icons = [
@@ -59,14 +61,14 @@ export default function ScrollingBanner({
   ];
 
   // Duplicate for seamless loop
-  const doubledIcons = [...icons, ...icons, ...icons];
+  const doubledIcons = [...icons, ...icons, ...icons, ...icons, ...icons, ...icons];
 
   return (
-    <div className={`${backgroundColor} overflow-hidden py-6 border-y border-white/10 select-none`}>
+    <div className={`${backgroundColor} overflow-hidden py-6 border-y border-white/10 select-none ${className}`}>
       <motion.div
-        className="flex whitespace-nowrap gap-24 items-center"
+        className="flex whitespace-nowrap gap-24 items-center w-fit"
         animate={{
-          x: reverse ? [-1000, 0] : [0, -1000],
+          x: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
         }}
         transition={{
           x: {
