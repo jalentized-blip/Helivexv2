@@ -1,11 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ShieldCheck, Star, Truck, Beaker, Globe, Zap } from 'lucide-react';
+import { ShieldCheck, Star, Truck, Beaker, Globe, Zap, Save } from 'lucide-react';
+import { useAdmin } from '@/context/AdminContext';
+import { updateMissionPositions } from '@/app/actions/updateMissionPositions';
+
+// --- POSITION MARKERS ---
+const CARD_1_POS = /* CARD_1_START */ { x: 0, y: 0 } /* CARD_1_END */;
+const CARD_2_POS = /* CARD_2_START */ { x: 0, y: 0 } /* CARD_2_END */;
+const CARD_3_POS = /* CARD_3_START */ { x: 0, y: 0 } /* CARD_3_END */;
 
 export default function MissionSection() {
+  const { isEditMode } = useAdmin();
+  const [positions, setPositions] = useState([CARD_1_POS, CARD_2_POS, CARD_3_POS]);
+  const [isSaving, setIsSaving] = useState(false);
+
   const features = [
     { icon: Star, text: "Premium Quality", color: "bg-primary" },
     { icon: Zap, text: "99% PURE & TESTED", color: "bg-primary" },
@@ -33,8 +44,34 @@ export default function MissionSection() {
     }
   ];
 
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      await updateMissionPositions(positions);
+      alert('Positions saved successfully!');
+    } catch (error) {
+      console.error(error);
+      alert('Failed to save positions.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <section className="relative py-24 bg-white overflow-hidden">
+      {isEditMode && (
+        <div className="fixed bottom-8 right-8 z-[100]">
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:scale-105 transition-transform disabled:opacity-50"
+          >
+            <Save size={20} />
+            {isSaving ? 'Saving...' : 'Save Mission Layout'}
+          </button>
+        </div>
+      )}
+
       <div className="container mx-auto px-6">
         
         {/* Top Feature Bars */}
@@ -116,12 +153,25 @@ export default function MissionSection() {
           {callouts.map((callout, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: i === 2 ? 50 : -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 + (i * 0.1) }}
-              className={`absolute ${callout.position} z-20 hidden md:block w-64`}
+              drag={isEditMode}
+              dragMomentum={false}
+              onDragEnd={(_, info) => {
+                const newPositions = [...positions];
+                newPositions[i] = {
+                  x: positions[i].x + info.offset.x,
+                  y: positions[i].y + info.offset.y
+                };
+                setPositions(newPositions);
+              }}
+              initial={false}
+              animate={{ 
+                x: positions[i].x, 
+                y: positions[i].y,
+                opacity: 1
+              }}
+              className={`absolute ${callout.position} z-20 hidden md:block w-64 ${isEditMode ? 'cursor-move' : ''}`}
             >
-              <div className="bg-white border border-black/[0.03] p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] relative group hover:shadow-xl transition-all duration-500">
+              <div className={`bg-white border ${isEditMode ? 'border-primary' : 'border-black/[0.03]'} p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] relative group hover:shadow-xl transition-all duration-500`}>
                 <h4 className="text-sm font-black text-zinc-900 mb-2 uppercase tracking-tight">{callout.title}</h4>
                 <p className="text-xs text-zinc-500 leading-relaxed font-medium">{callout.description}</p>
                 
