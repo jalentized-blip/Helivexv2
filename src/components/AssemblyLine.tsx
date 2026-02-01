@@ -6,17 +6,19 @@ import Image from 'next/image';
 
 const RealVial = ({ type }: { type: 'primary' | 'secondary' }) => (
   <div className="relative w-16 h-24 flex items-center justify-center">
-    {/* Glass Vial with Liquid */}
-    <div className="relative w-10 h-20 bg-white/10 rounded-b-md border border-white/20 backdrop-blur-[2px] overflow-hidden">
-      {/* Liquid Animation */}
-      <motion.div 
-        className={`absolute bottom-0 w-full ${type === 'primary' ? 'bg-primary/40' : 'bg-secondary/40'}`}
-        initial={{ height: "40%" }}
-        animate={{ height: ["40%", "42%", "40%"] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-      />
-      {/* Glass Reflection */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    {/* Glass Vial with Lyophilized Powder */}
+    <div className="relative w-10 h-20 bg-white/5 rounded-b-md border border-white/20 backdrop-blur-[1px] overflow-hidden">
+      {/* Lyophilized Powder Cake */}
+      <div className="absolute bottom-0 w-full h-[35%] bg-white/90 shadow-[inset_0_2px_10px_rgba(0,0,0,0.1)]">
+        {/* Powder Texture/Grain */}
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.2)_1px,transparent_1px)] bg-[size:3px_3px]" />
+        {/* Top of the cake - slightly uneven */}
+        <div className="absolute -top-1 left-0 w-full h-2 bg-white rounded-[50%] shadow-sm" />
+      </div>
+      
+      {/* Glass Reflection & Highlights */}
+      <div className="absolute inset-y-0 left-1 w-[2px] bg-white/20 blur-[1px]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
     </div>
     
     {/* Cap (The part that makes it look like a 3ml vial) */}
