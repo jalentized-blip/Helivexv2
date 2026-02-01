@@ -16,39 +16,43 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center overflow-hidden bg-foreground">
+      <section className="relative h-[80vh] flex items-center overflow-hidden bg-white">
         {/* Animated Lab Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent z-10" />
           
           {/* Subtle Molecule Patterns */}
-          <div className="absolute top-20 right-[10%] w-64 h-64 text-white opacity-[0.05] animate-pulse">
+          <div className="absolute top-20 right-[10%] w-64 h-64 text-primary opacity-[0.03] animate-pulse">
             <LabIcons.Structure />
           </div>
-          <div className="absolute bottom-20 right-[25%] w-48 h-48 text-white opacity-[0.03] rotate-12">
+          <div className="absolute bottom-20 right-[25%] w-48 h-48 text-primary opacity-[0.02] rotate-12">
             <LabIcons.Microscope />
           </div>
-          <div className="absolute top-[40%] right-[5%] w-32 h-32 text-white opacity-[0.04] -rotate-12">
+          <div className="absolute top-[40%] right-[5%] w-32 h-32 text-primary opacity-[0.03] -rotate-12">
             <LabIcons.Vial />
           </div>
         </div>
         
-        <div className="container relative z-10 text-white">
-          <div className="max-w-2xl space-y-6">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight">
+        <div className="container relative z-10 text-zinc-900">
+          <div className="max-w-2xl space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-black tracking-widest text-primary uppercase">
+              <Activity size={12} />
+              <span>Research Protocol Active</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-zinc-900">
               PRECISION IN <br />
-              <span className="text-secondary italic">RESEARCH.</span>
+              <span className="text-primary italic">RESEARCH.</span>
             </h1>
             <EditableText 
               tagName="p"
               content="Helivex Labs provides the scientific community with ultra-pure peptides and research compounds, setting the gold standard for integrity and reliability."
-              className="text-lg md:text-xl text-white/80 max-w-lg"
+              className="text-lg md:text-xl text-zinc-500 max-w-lg leading-relaxed"
             />
             <div className="flex flex-wrap gap-4 pt-4">
-              <Link href="/shop" className="btn-secondary flex items-center gap-2 group">
+              <Link href="/shop" className="btn-primary flex items-center gap-2 group px-8 py-4 text-sm font-black tracking-widest">
                 SHOP PRODUCTS <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link href="/about" className="px-6 py-3 border border-white/20 rounded-md font-medium hover:bg-white/10 transition-colors">
+              <Link href="/about" className="px-8 py-4 border border-black/5 rounded-md text-sm font-black tracking-widest hover:bg-black/5 transition-colors">
                 OUR MISSION
               </Link>
             </div>
@@ -56,7 +60,7 @@ export default function Home() {
         </div>
         
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="h-6 w-6 text-white/50" />
+          <ChevronDown className="h-6 w-6 text-black/20" />
         </div>
       </section>
 
