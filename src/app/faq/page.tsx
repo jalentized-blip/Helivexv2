@@ -1,10 +1,9 @@
 'use client';
 
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronDown, HelpCircle, ShieldAlert, Truck, CreditCard, FlaskConical } from 'lucide-react';
+import Link from 'next/link';
 
 const faqs = [
   {
@@ -98,8 +97,6 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
-      <Header />
-
       <main className="py-24">
         <div className="container">
           {/* Header */}
@@ -144,9 +141,9 @@ export default function FAQPage() {
                   <div className="relative z-10">
                     <h4 className="font-bold mb-2">Still need help?</h4>
                     <p className="text-xs text-zinc-400 mb-6 leading-relaxed">Our support team is available 24/7 for technical research inquiries.</p>
-                    <button className="w-full py-3 bg-primary text-white text-[10px] font-bold tracking-widest uppercase rounded-xl hover:bg-primary/90 transition-colors">
+                    <Link href="/contact" className="w-full py-3 bg-primary text-white text-[10px] font-bold tracking-widest uppercase rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center">
                       Contact Support
-                    </button>
+                    </Link>
                   </div>
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full -mr-16 -mt-16" />
                 </div>
@@ -181,8 +178,6 @@ export default function FAQPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

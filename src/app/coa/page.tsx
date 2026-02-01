@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, ArrowLeft, CheckCircle2, ShieldCheck, Search, Download, FlaskConical, Upload, Plus, X, Camera, Loader2, Clipboard } from 'lucide-react';
 import Link from 'next/link';
 import { useAdmin } from '@/context/AdminContext';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const INITIAL_COA_DATA = [
   {
@@ -107,7 +105,6 @@ export default function COAPage() {
       className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
-      <Header />
       <AnimatePresence mode="wait">
         {view === 'table' ? (
           <motion.div 
@@ -223,6 +220,12 @@ export default function COAPage() {
           >
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
               <div className="space-y-4">
+                <button 
+                  onClick={() => setView('table')}
+                  className="flex items-center gap-2 text-[10px] font-black tracking-[0.3em] text-zinc-400 hover:text-primary transition-colors mb-4"
+                >
+                  <ArrowLeft size={14} /> BACK_TO_TABLE
+                </button>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   <span className="text-[10px] font-black tracking-[0.3em] text-primary uppercase">Live Database</span>
@@ -411,7 +414,6 @@ export default function COAPage() {
           </motion.div>
         )}
       </AnimatePresence>
-      <Footer />
     </div>
   );
 }

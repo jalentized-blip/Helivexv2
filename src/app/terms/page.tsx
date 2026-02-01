@@ -1,13 +1,10 @@
 'use client';
 
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
-      <Header />
       <main className="py-24">
         <div className="container max-w-4xl">
           <motion.div
@@ -36,7 +33,6 @@ export default function TermsPage() {
           </motion.div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

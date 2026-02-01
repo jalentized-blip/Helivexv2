@@ -1,11 +1,9 @@
 'use client';
 
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Beaker, ShieldCheck, Microscope, Zap } from 'lucide-react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 export default function AboutPage() {
   const features = [
     {
@@ -32,8 +30,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
-      <Header />
-
       <main>
         {/* Hero Section */}
         <section className="relative py-24 overflow-hidden bg-zinc-50/50 border-b border-zinc-100">
@@ -162,28 +158,24 @@ export default function AboutPage() {
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to accelerate your <br/><span className="italic text-primary">breakthrough?</span></h2>
                 <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-primary text-white font-bold rounded-full tracking-widest uppercase text-xs hover:bg-primary/90 transition-colors"
+                  <Link 
+                    href="/shop"
+                    className="px-8 py-4 bg-primary text-white font-bold rounded-full tracking-widest uppercase text-xs hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
                   >
                     Browse Catalog
-                  </motion.button>
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-white/10 text-white font-bold rounded-full tracking-widest uppercase text-xs hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/20"
+                  </Link>
+                  <Link 
+                    href="/coa"
+                    className="px-8 py-4 bg-white/10 text-white font-bold rounded-full tracking-widest uppercase text-xs hover:bg-white/20 transition-all backdrop-blur-sm border border-white/20 hover:scale-105 active:scale-95"
                   >
                     View COA Archive
-                  </motion.button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

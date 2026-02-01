@@ -210,29 +210,46 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white">
-        <div className="container max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-16">FREQUENTLY ASKED QUESTIONS</h2>
-          <div className="space-y-6">
-            {[
-              {
-                q: "What are the products from Helivex Labs intended for?",
-                a: "All items sold by Helivex Labs are strictly for laboratory research use only. They are not for human or animal consumption, not for therapeutic use, and not cleared for incorporation into food, cosmetics, medical devices, or drugs."
-              },
-              {
-                q: "Do you provide Certificates of Analysis (COAs)?",
-                a: "Yes. Certificates of Analysis are available for most products. We ensure 99% purity through rigorous third-party testing."
-              },
-              {
-                q: "What is your shipping time?",
-                a: "Orders are processed quickly and shipped from the USA. You can expect delivery within 3-5 business days from the day you receive your tracking info."
-              }
-            ].map((item, i) => (
-              <div key={i} className="p-6 rounded-lg border border-border hover:border-primary/30 transition-colors">
-                <h4 className="font-bold text-lg mb-3">{item.q}</h4>
-                <p className="text-muted-foreground">{item.a}</p>
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="container relative">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Large Vial Image on the Left */}
+            <div className="relative w-full lg:w-1/2 h-[400px] md:h-[600px] flex items-center justify-center lg:justify-start">
+              <div className="relative w-[150%] h-full lg:-left-[25%]">
+                <Image 
+                  src="/vial.png"
+                  alt="Helivex Labs Research Vial"
+                  fill
+                  className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.1)]"
+                />
               </div>
-            ))}
+            </div>
+
+            {/* FAQ Content on the Right */}
+            <div className="w-full lg:w-1/2 space-y-8">
+              <h2 className="text-3xl font-bold tracking-tight text-center lg:text-left mb-12 uppercase">FREQUENTLY ASKED QUESTIONS</h2>
+              <div className="space-y-6">
+                {[
+                  {
+                    q: "What are the products from Helivex Labs intended for?",
+                    a: "All items sold by Helivex Labs are strictly for laboratory research use only. They are not for human or animal consumption, not for therapeutic use, and not cleared for incorporation into food, cosmetics, medical devices, or drugs."
+                  },
+                  {
+                    q: "Do you provide Certificates of Analysis (COAs)?",
+                    a: "Yes. Certificates of Analysis are available for most products. We ensure 99% purity through rigorous third-party testing."
+                  },
+                  {
+                    q: "What is your shipping time?",
+                    a: "Orders are processed quickly and shipped from the USA. You can expect delivery within 3-5 business days from the day you receive your tracking info."
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="p-8 rounded-2xl bg-white border border-zinc-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.04)] transition-all duration-300">
+                    <h4 className="font-bold text-lg mb-4 text-zinc-900 leading-tight">{item.q}</h4>
+                    <p className="text-zinc-500 text-sm leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

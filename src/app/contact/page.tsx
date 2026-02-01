@@ -1,7 +1,5 @@
 'use client';
 
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Globe } from 'lucide-react';
 import { useState } from 'react';
@@ -38,8 +36,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
-      <Header />
-
       <main className="py-24">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
@@ -172,8 +168,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -46,9 +46,9 @@ export default function ShopPage() {
               </div>
               
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <button className="w-full btn-primary text-sm py-2.5 rounded-xl shadow-lg">
-                  QUICK ADD
-                </button>
+                <div className="w-full btn-primary text-sm py-2.5 rounded-xl shadow-lg flex items-center justify-center">
+                  ANALYZE SPECIMEN
+                </div>
               </div>
             </Link>
             
