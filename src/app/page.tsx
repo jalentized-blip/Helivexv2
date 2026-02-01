@@ -98,41 +98,68 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20">
+      <section className="py-24 bg-zinc-50/50">
         <div className="container">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight">FEATURED COMPOUNDS</h2>
-              <p className="text-muted-foreground mt-2">Our most sought-after research materials.</p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-primary font-bold text-[10px] tracking-[0.3em] uppercase">
+                <FlaskConical size={14} />
+                <span>Product Catalog</span>
+              </div>
+              <h2 className="text-4xl font-bold tracking-tight">FEATURED COMPOUNDS</h2>
+              <p className="text-muted-foreground">Precision-engineered research materials for clinical study.</p>
             </div>
-            <Link href="/shop" className="text-primary font-bold flex items-center gap-1 hover:underline">
-              VIEW ALL <ArrowRight className="h-4 w-4" />
+            <Link href="/shop" className="btn-primary flex items-center gap-2 group text-sm py-2.5">
+              VIEW FULL INVENTORY <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((product) => (
-              <Link key={product.id} href={`/product/${product.id}`} className="group space-y-4">
-                <div className="aspect-square relative bg-muted rounded-xl overflow-hidden border border-border transition-all group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/5">
+              <Link key={product.id} href={`/product/${product.id}`} className="group space-y-5">
+                <div className="aspect-[4/5] relative bg-white rounded-2xl overflow-hidden border border-border transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_20px_40px_-15px_rgba(158,27,27,0.1)]">
                   {/* Subtle Lab Background Pattern for Cards */}
-                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none group-hover:opacity-[0.05] transition-opacity">
-                    <div className="absolute top-2 right-2 w-12 h-12 rotate-12"><LabIcons.Structure /></div>
-                    <div className="absolute bottom-4 left-4 w-10 h-10 -rotate-12"><LabIcons.Vial /></div>
+                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition-opacity duration-500">
+                    <div className="absolute top-4 right-4 w-16 h-16 rotate-12"><LabIcons.Structure /></div>
+                    <div className="absolute bottom-6 left-6 w-14 h-14 -rotate-12"><LabIcons.Vial /></div>
                   </div>
                   
-                  {product.isNew && (
-                    <span className="absolute top-3 left-3 z-10 bg-secondary text-secondary-foreground text-[10px] font-bold px-2 py-1 rounded">NEW</span>
-                  )}
-                  {product.isBestSeller && (
-                    <span className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-1 rounded">BEST SELLER</span>
-                  )}
-                  <div className="absolute inset-0 flex items-center justify-center p-12 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500">
+                  {/* Status Badges */}
+                  <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                    {product.isNew && (
+                      <span className="bg-secondary/90 backdrop-blur-sm text-secondary-foreground text-[9px] font-black tracking-widest px-2.5 py-1 rounded-full border border-primary/10">NEW_BATCH</span>
+                    )}
+                    {product.isBestSeller && (
+                      <span className="bg-primary/90 backdrop-blur-sm text-primary-foreground text-[9px] font-black tracking-widest px-2.5 py-1 rounded-full border border-white/10">TOP_RESEARCH</span>
+                    )}
+                  </div>
+
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none">
+                    <div className="absolute top-0 right-0 w-[1px] h-8 bg-primary/20" />
+                    <div className="absolute top-0 right-0 w-8 h-[1px] bg-primary/20" />
+                  </div>
+                  
+                  <div className="absolute inset-0 flex items-center justify-center p-16 opacity-10 group-hover:opacity-30 group-hover:scale-110 transition-all duration-700">
                      <Beaker className="h-full w-full text-primary" />
                   </div>
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-zinc-900 via-zinc-900/80 to-transparent">
+                    <div className="flex items-center justify-between text-white">
+                      <span className="text-[10px] font-bold tracking-widest uppercase">Analyze Specs</span>
+                      <ArrowRight size={14} />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold group-hover:text-primary transition-colors">{product.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{product.priceRange}</p>
+                <div className="space-y-1 px-1">
+                  <h3 className="font-bold text-lg group-hover:text-primary transition-colors duration-300">{product.name}</h3>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-mono text-muted-foreground">{product.priceRange}</p>
+                    <div className="flex gap-0.5">
+                      {[1, 2, 3].map(i => <div key={i} className="w-1 h-1 bg-primary/20 rounded-full" />)}
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}
