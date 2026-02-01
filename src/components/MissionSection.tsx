@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ShieldCheck, Star, Truck, Beaker, Globe, Zap, Save, RotateCcw, Maximize, Minimize } from 'lucide-react';
@@ -128,7 +128,7 @@ export default function MissionSection() {
           <motion.h2 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-4xl font-black tracking-tight text-[#0A3D62]"
+            className="text-4xl font-black tracking-tight text-primary"
           >
             Our Mission
           </motion.h2>
@@ -144,7 +144,7 @@ export default function MissionSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-[#0A3D62] font-black text-lg italic"
+            className="text-primary font-black text-lg italic"
           >
             When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
           </motion.p>
@@ -187,8 +187,8 @@ export default function MissionSection() {
               y: vialData.y,
               opacity: 1 
             }}
-            transition={isRotating ? { type: "just" } : { type: "spring", stiffness: 100, damping: 20 }}
-            className={`relative z-10 w-64 h-80 ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
+            transition={isRotating ? { duration: 0 } : { type: "spring", stiffness: 100, damping: 20 }}
+            className={`relative z-10 w-64 h-80 group ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
           >
             <Image 
               src="/vial.png"
@@ -200,13 +200,28 @@ export default function MissionSection() {
             {/* Vial Edit Controls Overlay */}
             {isEditMode && (
               <>
-                {/* Free Transform Rotation Handle */}
+                {/* Free Transform Rotation Circle - Appears when hovering near edges */}
+                <motion.div 
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    setIsRotating(true);
+                  }}
+                  whileHover={{ scale: 1.1, backgroundColor: "var(--color-primary)", color: "#fff" }}
+                  className="absolute -top-12 -right-12 w-10 h-10 rounded-full bg-white border-2 border-primary shadow-xl flex items-center justify-center text-primary cursor-alias z-[70] group/rotate-circle opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                >
+                  <RotateCcw size={20} className="group-hover/rotate-circle:rotate-45 transition-transform" />
+                  <div className="absolute -top-8 bg-primary text-white text-[8px] font-black px-2 py-1 rounded uppercase opacity-0 group-hover/rotate-circle:opacity-100 transition-opacity whitespace-nowrap">
+                    Hold to Rotate
+                  </div>
+                </motion.div>
+
+                {/* Legacy Top Handle */}
                 <div 
                   onMouseDown={(e) => {
                     e.stopPropagation();
                     setIsRotating(true);
                   }}
-                  className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-alias group/rotate z-[60]"
+                  className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-alias group/rotate z-[60] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 >
                   <div className="bg-primary text-white text-[8px] font-black px-2 py-0.5 rounded uppercase opacity-0 group-hover/rotate:opacity-100 transition-opacity">FREE_ROTATE</div>
                   <div className="w-8 h-8 rounded-full bg-white border-2 border-primary shadow-xl flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">

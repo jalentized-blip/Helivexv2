@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint, Pencil, Save, X } from 'lucide-react';
+import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint, Pencil, Save, X, RotateCcw, Maximize, Minimize } from 'lucide-react';
 import { LabIcons } from '@/components/LabArt';
 import { updateVialPosition } from '@/app/actions/updateVialPosition';
 import { useAdmin } from '@/context/AdminContext';
@@ -19,8 +19,9 @@ const DataRow = ({ label, value, color }: { label: string, value: string, color:
 export default function MedicalCore() {
   const [activeScan, setActiveScan] = useState(0);
   const { isEditMode, setIsEditMode } = useAdmin();
-  const [vialPos, setVialPos] = useState(/* VIAL_POS_START */ { x: 0, y: 0 } /* VIAL_POS_END */);
+  const [vialData, setVialData] = useState(/* VIAL_POS_START */ { x: 0, y: 0, rotate: 0, scale: 1 } /* VIAL_POS_END */);
   const [isSaving, setIsSaving] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [metrics, setMetrics] = useState({
@@ -42,15 +43,40 @@ export default function MedicalCore() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleFreeRotate = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isRotating) return;
+    const vialElement = document.getElementById('scanner-vial');
+    if (!vialElement) return;
+    const rect = vialElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+    setVialData(prev => ({ ...prev, rotate: angle + 90 }));
+  };
+
+  useEffect(() => {
+    if (isRotating) {
+      const handleMove = (e: any) => handleFreeRotate(e);
+      const handleUp = () => setIsRotating(false);
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+      };
+    }
+  }, [isRotating]);
+
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await updateVialPosition(vialPos.x, vialPos.y);
-      setIsEditMode(false);
-      alert('Position saved successfully!');
+      await updateVialPosition(vialData);
+      alert('Vial transformation saved successfully!');
     } catch (error) {
-      console.error('Failed to save position:', error);
-      alert('Failed to save position.');
+      console.error('Failed to save:', error);
+      alert('Failed to save transformation.');
     } finally {
       setIsSaving(false);
     }
@@ -122,54 +148,108 @@ export default function MedicalCore() {
                 ))}
               </div>
 
-              <Link href={isEditMode ? "#" : "/coa"} className={`relative z-10 block group ${isEditMode ? 'cursor-move' : 'cursor-pointer'}`}>
-              <motion.div 
-                drag={isEditMode}
-                dragConstraints={containerRef}
-                dragMomentum={false}
-                onDragEnd={(_, info) => {
-                  setVialPos(prev => ({
-                    x: prev.x + info.offset.x,
-                    y: prev.y + info.offset.y
-                  }));
-                }}
-                style={{ x: vialPos.x, y: vialPos.y }}
-                whileHover={!isEditMode ? { 
-                  scale: 1.05,
-                  y: -10,
-                  rotate: [0, -0.5, 0.5, -0.5, 0.5, 0],
-                  filter: ['brightness(1) contrast(1)', 'brightness(1.03) contrast(1.01)', 'brightness(1) contrast(1)']
-                } : {}}
-                transition={{ 
-                  rotate: { duration: 1.2, repeat: Infinity },
-                  y: { type: "spring", stiffness: 300, damping: 25 },
-                  scale: { type: "spring", stiffness: 300, damping: 25 },
-                  filter: { duration: 2, repeat: Infinity }
-                }}
-                className={`relative w-40 h-40 flex items-center justify-center ${isEditMode ? 'ring-2 ring-primary ring-offset-4 rounded-full bg-primary/5' : ''}`}
-              >
-                  <Image 
-                    src="/vial.png"
-                    alt="Research Vial"
-                    fill
-                    className="object-contain drop-shadow-[0_0_30px_rgba(158,27,27,0.2)]"
+              {/* Scanner Core Display */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  id="scanner-vial"
+                  drag={isEditMode && !isRotating}
+                  dragMomentum={false}
+                  onDragEnd={(_, info) => {
+                    setVialData(prev => ({
+                      ...prev,
+                      x: prev.x + info.offset.x,
+                      y: prev.y + info.offset.y
+                    }));
+                  }}
+                  animate={{ 
+                    x: vialData.x, 
+                    y: vialData.y,
+                    rotate: vialData.rotate,
+                    scale: vialData.scale
+                  }}
+                  transition={isRotating ? { duration: 0 } : { type: "spring", stiffness: 100, damping: 20 }}
+                  className={`relative w-48 h-64 z-20 group ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
+                >
+                  <Link href={isEditMode ? "#" : "/coa"} className={isEditMode ? 'cursor-move' : 'cursor-pointer'}>
+                    <Image 
+                      src="/vial.png"
+                      alt="Research Vial"
+                      fill
+                      className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)] pointer-events-none"
+                    />
+                  </Link>
+                  
+                  {/* Scanner "Simmer" Effect */}
+                  <motion.div 
+                    animate={{ 
+                      opacity: [0.3, 0.6, 0.3],
+                      scale: [1, 1.02, 1]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="absolute inset-0 bg-primary/5 rounded-full blur-2xl -z-10"
                   />
-                </motion.div>
-                
-                {/* Click Hint */}
-                <AnimatePresence>
-                  {!isEditMode && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap tracking-widest shadow-xl pointer-events-none"
-                    >
-                      VIEW COA DATA
-                    </motion.div>
+
+                  {/* Edit Controls Overlay */}
+                  {isEditMode && (
+                    <>
+                      {/* Free Transform Rotation Circle */}
+                      <motion.div 
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          setIsRotating(true);
+                        }}
+                        whileHover={{ scale: 1.1, backgroundColor: "var(--color-primary)", color: "#fff" }}
+                        className="absolute -top-10 -right-10 w-9 h-9 rounded-full bg-white border-2 border-primary shadow-xl flex items-center justify-center text-primary cursor-alias z-[70] group/rotate-circle opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      >
+                        <RotateCcw size={18} className="group-hover/rotate-circle:rotate-45 transition-transform" />
+                        <div className="absolute -top-8 bg-primary text-white text-[8px] font-black px-2 py-1 rounded uppercase opacity-0 group-hover/rotate-circle:opacity-100 transition-opacity whitespace-nowrap">
+                          Hold to Rotate
+                        </div>
+                      </motion.div>
+
+                      {/* Free Transform Rotation Handle (Legacy) */}
+                      <div 
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          setIsRotating(true);
+                        }}
+                        className="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-alias group/rotate z-[60] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      >
+                        <div className="bg-primary text-white text-[8px] font-black px-2 py-0.5 rounded uppercase opacity-0 group-hover/rotate:opacity-100 transition-opacity">FREE_ROTATE</div>
+                        <div className="w-8 h-8 rounded-full bg-white border-2 border-primary shadow-xl flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+                          <RotateCcw size={16} />
+                        </div>
+                        <div className="w-0.5 h-6 bg-primary/30" />
+                      </div>
+
+                      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white p-1.5 rounded-xl shadow-xl border border-primary/20 z-50">
+                        <button 
+                          onClick={() => setVialData(prev => ({ ...prev, rotate: Math.round(prev.rotate / 90) * 90 + 90 }))}
+                          className="p-1 hover:bg-primary/10 rounded text-primary transition-colors"
+                          title="Snap 90°"
+                        >
+                          <RotateCcw size={14} />
+                        </button>
+                        <div className="w-[1px] h-3 bg-zinc-200 mx-0.5" />
+                        <button 
+                          onClick={() => setVialData(prev => ({ ...prev, scale: Math.min(prev.scale + 0.1, 2) }))}
+                          className="p-1 hover:bg-primary/10 rounded text-primary transition-colors"
+                          title="Increase Size"
+                        >
+                          <Maximize size={14} />
+                        </button>
+                        <button 
+                          onClick={() => setVialData(prev => ({ ...prev, scale: Math.max(prev.scale - 0.1, 0.5) }))}
+                          className="p-1 hover:bg-primary/10 rounded text-primary transition-colors"
+                          title="Decrease Size"
+                        >
+                          <Minimize size={14} />
+                        </button>
+                      </div>
+                    </>
                   )}
-                </AnimatePresence>
-              </Link>
+                </motion.div>
+              </div>
               
               {/* Internal HUD Markers */}
               <div className="absolute inset-0 pointer-events-none">
