@@ -30,7 +30,18 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center overflow-hidden bg-white">
         {/* Animated Lab Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent z-10" />
+          {/* Background Image: Vial.png */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/vial.png"
+              alt="Lab Vials Background"
+              fill
+              className="object-cover opacity-10"
+              priority
+            />
+          </div>
+          
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
           
           {/* Subtle Molecule Patterns */}
           <div className="absolute top-20 right-[10%] w-64 h-64 text-primary opacity-[0.03] animate-pulse">
