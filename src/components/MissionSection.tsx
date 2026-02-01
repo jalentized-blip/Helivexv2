@@ -18,6 +18,37 @@ export default function MissionSection() {
   const [positions, setPositions] = useState([CARD_1_POS, CARD_2_POS, CARD_3_POS]);
   const [vialData, setVialData] = useState(VIAL_DATA);
   const [isSaving, setIsSaving] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
+
+  const handleFreeRotate = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isRotating) return;
+    
+    const vialElement = document.getElementById('vial-container');
+    if (!vialElement) return;
+
+    const rect = vialElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+    const angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI);
+    setVialData(prev => ({ ...prev, rotate: angle + 90 })); // Offset by 90 to align with top handle
+  };
+
+  useEffect(() => {
+    if (isRotating) {
+      const handleMove = (e: any) => handleFreeRotate(e);
+      const handleUp = () => setIsRotating(false);
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+      };
+    }
+  }, [isRotating]);
 
   const features = [
     { icon: Star, text: "Premium Quality", color: "bg-primary" },
@@ -138,7 +169,8 @@ export default function MissionSection() {
 
           {/* Central Vial */}
           <motion.div
-            drag={isEditMode}
+            id="vial-container"
+            drag={isEditMode && !isRotating}
             dragMomentum={false}
             onDragEnd={(_, info) => {
               setVialData(prev => ({
@@ -155,42 +187,59 @@ export default function MissionSection() {
               y: vialData.y,
               opacity: 1 
             }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            transition={isRotating ? { type: "just" } : { type: "spring", stiffness: 100, damping: 20 }}
             className={`relative z-10 w-64 h-80 ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
           >
             <Image 
               src="/vial.png"
               alt="Helivex Vial"
               fill
-              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
+              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] pointer-events-none"
             />
             
             {/* Vial Edit Controls Overlay */}
             {isEditMode && (
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white p-2 rounded-xl shadow-xl border border-primary/20 z-50">
-                <button 
-                  onClick={() => setVialData(prev => ({ ...prev, rotate: prev.rotate + 90 }))}
-                  className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
-                  title="Rotate 90°"
+              <>
+                {/* Free Transform Rotation Handle */}
+                <div 
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    setIsRotating(true);
+                  }}
+                  className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-alias group/rotate z-[60]"
                 >
-                  <RotateCcw size={16} />
-                </button>
-                <div className="w-[1px] h-4 bg-zinc-200 mx-1" />
-                <button 
-                  onClick={() => setVialData(prev => ({ ...prev, scale: Math.min(prev.scale + 0.1, 2) }))}
-                  className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
-                  title="Increase Size"
-                >
-                  <Maximize size={16} />
-                </button>
-                <button 
-                  onClick={() => setVialData(prev => ({ ...prev, scale: Math.max(prev.scale - 0.1, 0.5) }))}
-                  className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
-                  title="Decrease Size"
-                >
-                  <Minimize size={16} />
-                </button>
-              </div>
+                  <div className="bg-primary text-white text-[8px] font-black px-2 py-0.5 rounded uppercase opacity-0 group-hover/rotate:opacity-100 transition-opacity">FREE_ROTATE</div>
+                  <div className="w-8 h-8 rounded-full bg-white border-2 border-primary shadow-xl flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+                    <RotateCcw size={16} />
+                  </div>
+                  <div className="w-0.5 h-8 bg-primary/30" />
+                </div>
+
+                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white p-2 rounded-xl shadow-xl border border-primary/20 z-50">
+                  <button 
+                    onClick={() => setVialData(prev => ({ ...prev, rotate: Math.round(prev.rotate / 90) * 90 + 90 }))}
+                    className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
+                    title="Snap 90°"
+                  >
+                    <RotateCcw size={16} />
+                  </button>
+                  <div className="w-[1px] h-4 bg-zinc-200 mx-1" />
+                  <button 
+                    onClick={() => setVialData(prev => ({ ...prev, scale: Math.min(prev.scale + 0.1, 2) }))}
+                    className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
+                    title="Increase Size"
+                  >
+                    <Maximize size={16} />
+                  </button>
+                  <button 
+                    onClick={() => setVialData(prev => ({ ...prev, scale: Math.max(prev.scale - 0.1, 0.5) }))}
+                    className="p-1.5 hover:bg-primary/10 rounded-lg text-primary transition-colors"
+                    title="Decrease Size"
+                  >
+                    <Minimize size={16} />
+                  </button>
+                </div>
+              </>
             )}
           </motion.div>
 
