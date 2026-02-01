@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Zap, Beaker, ChevronDown } from 'lucide-react';
 import { products } from '@/data/products';
+import ScrollingBanner from '@/components/ScrollingBanner';
 
 export default function Home() {
   return (
@@ -160,6 +161,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Scrolling Banner */}
+      <ScrollingBanner />
     </div>
   );
 }
