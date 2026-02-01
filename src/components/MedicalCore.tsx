@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint } from 'lucide-react';
+import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint, Pencil, Save, X } from 'lucide-react';
 import { LabIcons } from '@/components/LabArt';
+import { updateVialPosition } from '@/app/actions/updateVialPosition';
+import { useAdmin } from '@/context/AdminContext';
 
 const DataRow = ({ label, value, color }: { label: string, value: string, color: string }) => (
   <div className="flex justify-between items-center py-1 border-b border-black/5">
@@ -16,6 +18,11 @@ const DataRow = ({ label, value, color }: { label: string, value: string, color:
 
 export default function MedicalCore() {
   const [activeScan, setActiveScan] = useState(0);
+  const { isEditMode, setIsEditMode } = useAdmin();
+  const [vialPos, setVialPos] = useState(/* VIAL_POS_START */ { x: 0, y: 0 } /* VIAL_POS_END */);
+  const [isSaving, setIsSaving] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const [metrics, setMetrics] = useState({
     purity: '99.242%',
     stability: 'Optimal',
@@ -35,8 +42,42 @@ export default function MedicalCore() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      await updateVialPosition(vialPos.x, vialPos.y);
+      setIsEditMode(false);
+      alert('Position saved successfully!');
+    } catch (error) {
+      console.error('Failed to save position:', error);
+      alert('Failed to save position.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
-    <div className="relative w-full min-h-[700px] bg-white overflow-hidden py-32 px-6">
+    <div ref={containerRef} className="relative w-full min-h-[700px] bg-white overflow-hidden py-32 px-6">
+      {/* Edit Mode Save Button */}
+      <AnimatePresence>
+        {isEditMode && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-10 right-10 z-50"
+          >
+            <button 
+              onClick={handleSave}
+              disabled={isSaving}
+              className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-black text-[10px] tracking-widest shadow-xl hover:bg-red-700 transition-colors disabled:opacity-50"
+            >
+              {isSaving ? 'SAVING...' : <><Save size={16} /> SAVE POSITION</>}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background Tech Elements - Light Mode */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(158,27,27,0.02),transparent)]" />
@@ -81,21 +122,31 @@ export default function MedicalCore() {
                 ))}
               </div>
 
-              <Link href="/coa" className="relative z-10 block group">
+              <Link href={isEditMode ? "#" : "/coa"} className={`relative z-10 block group ${isEditMode ? 'cursor-move' : 'cursor-pointer'}`}>
               <motion.div 
-                whileHover={{ 
+                drag={isEditMode}
+                dragConstraints={containerRef}
+                dragMomentum={false}
+                onDragEnd={(_, info) => {
+                  setVialPos(prev => ({
+                    x: prev.x + info.offset.x,
+                    y: prev.y + info.offset.y
+                  }));
+                }}
+                style={{ x: vialPos.x, y: vialPos.y }}
+                whileHover={!isEditMode ? { 
                   scale: 1.05,
                   y: -10,
                   rotate: [0, -0.5, 0.5, -0.5, 0.5, 0],
                   filter: ['brightness(1) contrast(1)', 'brightness(1.03) contrast(1.01)', 'brightness(1) contrast(1)']
-                }}
+                } : {}}
                 transition={{ 
                   rotate: { duration: 1.2, repeat: Infinity },
                   y: { type: "spring", stiffness: 300, damping: 25 },
                   scale: { type: "spring", stiffness: 300, damping: 25 },
                   filter: { duration: 2, repeat: Infinity }
                 }}
-                className="relative w-40 h-40 cursor-pointer flex items-center justify-center"
+                className={`relative w-40 h-40 flex items-center justify-center ${isEditMode ? 'ring-2 ring-primary ring-offset-4 rounded-full bg-primary/5' : ''}`}
               >
                   <Image 
                     src="/vial.png"
@@ -106,13 +157,18 @@ export default function MedicalCore() {
                 </motion.div>
                 
                 {/* Click Hint */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap tracking-widest shadow-xl pointer-events-none"
-                >
-                  VIEW COA DATA
-                </motion.div>
+                <AnimatePresence>
+                  {!isEditMode && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full whitespace-nowrap tracking-widest shadow-xl pointer-events-none"
+                    >
+                      VIEW COA DATA
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </Link>
               
               {/* Internal HUD Markers */}

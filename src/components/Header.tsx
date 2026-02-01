@@ -1,11 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Menu, Search, User } from 'lucide-react';
+import { ShoppingCart, Menu, Search, User, Pencil } from 'lucide-react';
 import { useState } from 'react';
+import { useAdmin } from '@/context/AdminContext';
+import { useUser } from '@/context/UserContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isEditMode, setIsEditMode } = useAdmin();
+  const { user, isAuthenticated } = useUser();
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md">
@@ -38,6 +42,13 @@ export default function Header() {
               CONTACT
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full" />
             </Link>
+            <button 
+              onClick={() => setIsEditMode(!isEditMode)}
+              className={`ml-[-10px] p-1.5 rounded-full transition-all ${isEditMode ? 'bg-primary text-white scale-110 shadow-lg' : 'text-zinc-400 hover:text-primary hover:bg-primary/5'}`}
+              title={isEditMode ? "Exit Edit Mode" : "Enter Edit Mode"}
+            >
+              <Pencil size={14} className={isEditMode ? "animate-pulse" : ""} />
+            </button>
           </nav>
         </div>
 
@@ -49,9 +60,20 @@ export default function Header() {
           <Link href="/shop" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full">
             <Search className="h-4 w-4" />
           </Link>
-          <Link href="/orders" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full">
-            <User className="h-4 w-4" />
-          </Link>
+          
+          {isAuthenticated ? (
+            <Link href="/dashboard" className="flex items-center gap-2 pl-2 pr-4 py-1.5 transition-colors hover:text-primary hover:bg-muted rounded-full group">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                <User className="h-4 w-4" />
+              </div>
+              <span className="text-[10px] font-black tracking-widest uppercase hidden lg:inline-block">{user?.name}</span>
+            </Link>
+          ) : (
+            <Link href="/login" className="px-5 py-2 bg-zinc-900 text-white rounded-full text-[10px] font-black tracking-[0.2em] uppercase hover:bg-primary transition-all shadow-lg shadow-black/5">
+              LOGIN
+            </Link>
+          )}
+
           <Link href="/checkout" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full relative">
             <ShoppingCart className="h-4 w-4" />
             <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-primary text-[8px] font-bold text-white flex items-center justify-center">0</span>

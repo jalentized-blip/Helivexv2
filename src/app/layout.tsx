@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AdminProvider } from "@/context/AdminContext";
+import { UserProvider } from "@/context/UserContext";
 import AdminToolbar from "@/components/AdminToolbar";
 
 const geistSans = Geist({
@@ -29,14 +30,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
-        <AdminProvider>
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-          <AdminToolbar />
-        </AdminProvider>
+        <UserProvider>
+          <AdminProvider>
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+            <AdminToolbar />
+          </AdminProvider>
+        </UserProvider>
       </body>
     </html>
   );
