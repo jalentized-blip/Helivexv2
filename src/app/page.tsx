@@ -180,14 +180,14 @@ export default function Home() {
       {/* Crossing Scrolling Banners */}
       <section className="relative h-[400px] md:h-[600px] bg-foreground overflow-hidden flex items-center justify-center mt-20">
         <div className="relative w-full h-full flex items-center justify-center">
-          <div className="absolute w-[120vw] -rotate-[6deg] z-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
+          <div className="absolute w-[150vw] -rotate-[6deg] z-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
             <ScrollingBanner 
               backgroundColor="bg-primary" 
               textColor="text-white/40" 
               speed={40}
             />
           </div>
-          <div className="absolute w-[120vw] rotate-[6deg] z-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
+          <div className="absolute w-[150vw] rotate-[6deg] z-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu">
             <ScrollingBanner 
               backgroundColor="bg-secondary" 
               textColor="text-primary/40" 
