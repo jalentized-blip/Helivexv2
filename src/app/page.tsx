@@ -200,7 +200,7 @@ export default function Home() {
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
         {/* Background GIF */}
         <div 
-          className="absolute right-0 top-0 bottom-0 w-1/2 z-0 pointer-events-none opacity-[0.2]"
+          className="absolute right-0 top-0 bottom-0 w-1/2 z-0 pointer-events-none opacity-[0.08]"
           style={{
             maskImage: 'linear-gradient(to right, transparent, black 40%)',
             WebkitMaskImage: 'linear-gradient(to right, transparent, black 40%)',
