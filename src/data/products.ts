@@ -1,14 +1,18 @@
+export interface ProductStrength {
+  id: string;
+  label: string;
+  price: number;
+}
+
 export interface Product {
   id: string;
   name: string;
-  price: number;
-  priceRange: string;
   image: string;
   description: string;
   category: string;
   isNew?: boolean;
   isBestSeller?: boolean;
-  strengths: string[];
+  strengths: ProductStrength[];
   hasKit: boolean;
   kitPrice?: number;
   coaImage?: string;
@@ -18,13 +22,14 @@ export const products: Product[] = [
   {
     id: 'tesa',
     name: 'TESA',
-    price: 45.00,
-    priceRange: '$45.00 - $280.00',
     image: '/vial.png',
     description: 'High purity TESA for research purposes.',
     category: 'Peptides',
     isBestSeller: true,
-    strengths: ['5mg', '10mg'],
+    strengths: [
+      { id: '5mg', label: '5mg', price: 45.00 },
+      { id: '10mg', label: '10mg', price: 85.00 }
+    ],
     hasKit: true,
     kitPrice: 280.00,
     coaImage: '/coa-placeholder.jpg'
@@ -32,12 +37,13 @@ export const products: Product[] = [
   {
     id: 'vip',
     name: 'VIP',
-    price: 50.00,
-    priceRange: '$50.00 - $350.00',
     image: '/vial.png',
     description: 'Premium VIP research compound.',
     category: 'Peptides',
-    strengths: ['2mg', '5mg'],
+    strengths: [
+      { id: '2mg', label: '2mg', price: 50.00 },
+      { id: '5mg', label: '5mg', price: 110.00 }
+    ],
     hasKit: true,
     kitPrice: 350.00,
     coaImage: '/coa-placeholder.jpg'
@@ -45,25 +51,26 @@ export const products: Product[] = [
   {
     id: 'mots-c',
     name: 'MOTS-C',
-    price: 45.00,
-    priceRange: '$45.00 - $175.00',
     image: '/vial.png',
     description: 'High-grade MOTS-C research peptide.',
     category: 'Peptides',
     isNew: true,
-    strengths: ['5mg', '10mg'],
+    strengths: [
+      { id: '5mg', label: '5mg', price: 45.00 },
+      { id: '10mg', label: '10mg', price: 80.00 }
+    ],
     hasKit: false,
     coaImage: '/coa-placeholder.jpg'
   },
   {
     id: 'mt-2',
     name: 'MT-2',
-    price: 40.00,
-    priceRange: '$40.00 - $150.00',
     image: '/vial.png',
     description: 'MT-2 peptide for scientific research.',
     category: 'Peptides',
-    strengths: ['10mg'],
+    strengths: [
+      { id: '10mg', label: '10mg', price: 40.00 }
+    ],
     hasKit: true,
     kitPrice: 150.00,
     coaImage: '/coa-placeholder.jpg'

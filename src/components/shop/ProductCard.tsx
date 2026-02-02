@@ -11,6 +11,14 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  // Calculate price range from strengths
+  const prices = product.strengths.map(s => s.price);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const priceRange = prices.length > 1 
+    ? `$${minPrice.toFixed(2)} - $${maxPrice.toFixed(2)}`
+    : `$${minPrice.toFixed(2)}`;
+
   return (
     <div className="group flex flex-col bg-white rounded-2xl border border-border overflow-hidden transition-all hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20">
       {/* Image Section */}
@@ -57,7 +65,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <h3 className="font-bold text-lg group-hover:text-primary transition-colors">{product.name}</h3>
           </Link>
           <div className="flex items-center justify-between">
-            <p className="text-primary font-black text-sm tracking-tight">{product.priceRange}</p>
+            <p className="text-primary font-black text-sm tracking-tight">{priceRange}</p>
           </div>
         </div>
 

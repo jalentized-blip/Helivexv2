@@ -1,8 +1,9 @@
 'use client';
 
 import { useAdmin } from '@/context/AdminContext';
-import { Edit3, Eye, Save, Settings, X } from 'lucide-react';
+import { Edit3, Eye, Save, Settings, X, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 export default function AdminToolbar() {
   const { isAdmin, isEditMode, setIsEditMode } = useAdmin();
@@ -21,6 +22,14 @@ export default function AdminToolbar() {
           <p className="text-xs font-bold">Helivex Labs Live</p>
         </div>
         
+        <Link 
+          href="/admin"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl transition-all font-bold text-xs hover:bg-white/10 text-white/70"
+        >
+          <LayoutDashboard className="h-4 w-4" />
+          DASHBOARD
+        </Link>
+
         <button 
           onClick={() => setIsEditMode(!isEditMode)}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all font-bold text-xs ${

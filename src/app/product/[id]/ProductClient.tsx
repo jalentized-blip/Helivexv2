@@ -2,17 +2,26 @@
 
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FlaskConical, ShieldCheck, Truck, Beaker, X, FileText, ChevronRight } from 'lucide-react';
-import { products } from '@/data/products';
+import { useAdmin } from '@/context/AdminContext';
 import Link from 'next/link';
 
 export default function ProductClient() {
   const params = useParams();
-  const product = products.find((p) => p.id === params.id);
-  const [selectedStrength, setSelectedStrength] = useState(product?.strengths[0] || '');
+  const { products } = useAdmin();
+  const product = useMemo(() => products.find((p) => p.id === params.id), [products, params.id]);
+  
+  const [selectedStrengthId, setSelectedStrengthId] = useState(product?.strengths[0]?.id || '');
   const [quantity, setQuantity] = useState(1);
   const [showCoa, setShowCoa] = useState(false);
+
+  const selectedStrength = useMemo(() => 
+    product?.strengths.find(s => s.id === selectedStrengthId),
+    [product, selectedStrengthId]
+  );
+
+  const currentPrice = selectedStrength ? selectedStrength.price : 0;
 
   if (!product) {
     return (
@@ -81,7 +90,7 @@ export default function ProductClient() {
                 {product.isBestSeller && <span className="bg-secondary/10 text-secondary text-[10px] font-black px-3 py-1 rounded-full tracking-[0.2em] uppercase">Top Choice</span>}
               </div>
               <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-foreground">{product.name}</h1>
-              <p className="text-2xl font-black text-primary tracking-tight">{product.priceRange}</p>
+              <p className="text-2xl font-black text-primary tracking-tight">${currentPrice.toFixed(2)}</p>
             </div>
 
             <p className="text-muted-foreground leading-relaxed text-lg">
@@ -95,15 +104,15 @@ export default function ProductClient() {
                 <div className="flex flex-wrap gap-3">
                   {product.strengths.map((strength) => (
                     <button
-                      key={strength}
-                      onClick={() => setSelectedStrength(strength)}
+                      key={strength.id}
+                      onClick={() => setSelectedStrengthId(strength.id)}
                       className={`px-6 py-3 rounded-xl text-xs font-bold transition-all border ${
-                        selectedStrength === strength 
+                        selectedStrengthId === strength.id 
                         ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' 
                         : 'bg-white text-foreground border-border hover:border-primary/40'
                       }`}
                     >
-                      {strength}
+                      {strength.label}
                     </button>
                   ))}
                 </div>
