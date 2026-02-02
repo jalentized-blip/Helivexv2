@@ -51,7 +51,7 @@ export const products: Product[] = [
   {
     "id": "vip",
     "name": "VIP",
-    "image": "/vial.png",
+    "image": "/VIP.png",
     "description": "Premium VIP research compound.",
     "category": "Peptides",
     "strengths": [
@@ -76,7 +76,7 @@ export const products: Product[] = [
   {
     "id": "mots-c",
     "name": "MOTS-C",
-    "image": "/vial.png",
+    "image": "/motsc.png",
     "description": "High-grade MOTS-C research peptide.",
     "category": "Peptides",
     "isNew": true,
@@ -101,7 +101,7 @@ export const products: Product[] = [
   {
     "id": "mt-2",
     "name": "MT-2",
-    "image": "/vial.png",
+    "image": "/MT-2.png",
     "description": "MT-2 peptide for scientific research.",
     "category": "Peptides",
     "strengths": [
