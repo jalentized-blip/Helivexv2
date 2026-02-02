@@ -2,7 +2,9 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, products as initialProducts } from '@/data/products';
+import { Order, orders as initialOrders } from '@/data/orders';
 import { updateProducts } from '@/app/actions/updateProducts';
+import { updateOrders } from '@/app/actions/updateOrders';
 
 interface AdminContextType {
   isEditMode: boolean;
@@ -12,9 +14,11 @@ interface AdminContextType {
   login: (email: string) => void;
   logout: () => void;
   products: Product[];
+  orders: Order[];
   updateProduct: (updatedProduct: Product) => void;
   addProduct: (newProduct: Product) => void;
   deleteProduct: (productId: string) => void;
+  updateOrder: (updatedOrder: Order) => void;
   pushToLive: () => Promise<{ success: boolean; error?: string; message?: string }>;
 }
 
@@ -26,6 +30,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [orders, setOrders] = useState<Order[]>(initialOrders);
 
   useEffect(() => {
     // Check for admin status via email or legacy token
@@ -73,6 +78,17 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         console.error('Failed to parse saved products', e);
       }
     }
+
+    // Load orders from localStorage if available
+    const savedOrders = localStorage.getItem('helivex_orders');
+    if (savedOrders) {
+      try {
+        const parsed = JSON.parse(savedOrders);
+        setOrders(parsed);
+      } catch (e) {
+        console.error('Failed to parse saved orders', e);
+      }
+    }
   }, []);
 
   const login = (email: string) => {
@@ -116,12 +132,22 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('helivex_products', JSON.stringify(newProducts));
   };
 
+  const updateOrder = (updatedOrder: Order) => {
+    const newOrders = orders.map(o => o.id === updatedOrder.id ? updatedOrder : o);
+    setOrders(newOrders);
+    localStorage.setItem('helivex_orders', JSON.stringify(newOrders));
+  };
+
   const pushToLive = async () => {
     try {
-      const result = await updateProducts(products);
-      return result;
+      // Push both products and orders
+      const productResult = await updateProducts(products);
+      if (!productResult.success) return productResult;
+      
+      const orderResult = await updateOrders(orders);
+      return orderResult;
     } catch (error) {
-      console.error('Failed to push products to live:', error);
+      console.error('Failed to push updates to live:', error);
       return { success: false, error: 'Failed to push updates' };
     }
   };
@@ -135,9 +161,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
       products, 
+      orders,
       updateProduct, 
       addProduct, 
       deleteProduct,
+      updateOrder,
       pushToLive
     }}>
       {children}

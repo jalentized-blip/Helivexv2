@@ -20,6 +20,22 @@ export default function MissionSection() {
   const [vialData, setVialData] = useState(VIAL_DATA);
   const [isSaving, setIsSaving] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [orbs, setOrbs] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Generate random flying orbs on the client to avoid hydration mismatch
+    const generatedOrbs = Array.from({ length: 25 }).map((_, i) => ({
+      id: i,
+      size: Math.random() * 6 + 2,
+      // Create a path of random points
+      x: Array.from({ length: 5 }).map(() => Math.random() * 600 - 300),
+      y: Array.from({ length: 5 }).map(() => Math.random() * 600 - 300),
+      duration: Math.random() * 20 + 20,
+      delay: Math.random() * 10,
+      maxOpacity: Math.random() * 0.4 + 0.1
+    }));
+    setOrbs(generatedOrbs);
+  }, []);
 
   const handleFreeRotate = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isRotating) return;
@@ -167,6 +183,32 @@ export default function MissionSection() {
               className="absolute inset-[-40px] border border-primary/10 rounded-full"
             />
           </div>
+
+          {/* Flying Orbs */}
+          {orbs.map((orb) => (
+            <motion.div
+              key={orb.id}
+              className="absolute rounded-full pointer-events-none z-[5]"
+              style={{
+                width: orb.size,
+                height: orb.size,
+                backgroundColor: '#F4A7A4', // Faded pink/salmon from the image
+                filter: 'blur(1.5px)',
+                boxShadow: '0 0 10px rgba(244, 167, 164, 0.3)',
+              }}
+              animate={{
+                x: orb.x,
+                y: orb.y,
+                opacity: [0, orb.maxOpacity, orb.maxOpacity, 0],
+              }}
+              transition={{
+                duration: orb.duration,
+                repeat: Infinity,
+                delay: orb.delay,
+                ease: "linear",
+              }}
+            />
+          ))}
 
           {/* Central Vial */}
           <motion.div
