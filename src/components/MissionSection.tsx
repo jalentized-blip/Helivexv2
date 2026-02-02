@@ -171,44 +171,60 @@ export default function MissionSection() {
         <div className="relative max-w-lg mx-auto aspect-square flex items-center justify-center">
           
           {/* Background medical "twist" - pulse rings */}
-          <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+            {/* Pulsating Brand Color Glow around Vial */}
             <motion.div 
-              animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.05, 0.1] }}
+              animate={{ 
+                scale: [1, 1.15, 1],
+                opacity: [0.3, 0.6, 0.3],
+                filter: ["blur(40px)", "blur(60px)", "blur(40px)"]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-64 h-80 rounded-full"
+              style={{ backgroundColor: '#F4A7A4' }}
+            />
+            
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.08, 0.15] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute inset-0 border-2 border-primary/20 rounded-full"
+              className="absolute w-full h-full border-2 border-[#F4A7A4]/30 rounded-full"
             />
             <motion.div 
-              animate={{ scale: [1, 1.4, 1], opacity: [0.05, 0, 0.05] }}
+              animate={{ scale: [1, 1.4, 1], opacity: [0.08, 0, 0.08] }}
               transition={{ duration: 6, repeat: Infinity }}
-              className="absolute inset-[-40px] border border-primary/10 rounded-full"
+              className="absolute w-[120%] h-[120%] border border-[#F4A7A4]/20 rounded-full"
             />
           </div>
 
           {/* Flying Orbs */}
-          {orbs.map((orb) => (
-            <motion.div
-              key={orb.id}
-              className="absolute rounded-full pointer-events-none z-[5]"
-              style={{
-                width: orb.size,
-                height: orb.size,
-                backgroundColor: '#F4A7A4', // Faded pink/salmon from the image
-                filter: 'blur(1.5px)',
-                boxShadow: '0 0 10px rgba(244, 167, 164, 0.3)',
-              }}
-              animate={{
-                x: orb.x,
-                y: orb.y,
-                opacity: [0, orb.maxOpacity, orb.maxOpacity, 0],
-              }}
-              transition={{
-                duration: orb.duration,
-                repeat: Infinity,
-                delay: orb.delay,
-                ease: "linear",
-              }}
-            />
-          ))}
+          <div className="absolute inset-0 pointer-events-none z-[15]">
+            {orbs.map((orb) => (
+              <motion.div
+                key={orb.id}
+                className="absolute rounded-full"
+                style={{
+                  width: orb.size,
+                  height: orb.size,
+                  backgroundColor: '#F4A7A4',
+                  filter: 'blur(1px)',
+                  boxShadow: '0 0 8px rgba(244, 167, 164, 0.4)',
+                  left: '50%',
+                  top: '50%',
+                }}
+                animate={{
+                  x: orb.x,
+                  y: orb.y,
+                  opacity: [0, orb.maxOpacity, orb.maxOpacity, 0],
+                }}
+                transition={{
+                  duration: orb.duration,
+                  repeat: Infinity,
+                  delay: orb.delay,
+                  ease: "linear",
+                }}
+              />
+            ))}
+          </div>
 
           {/* Central Vial */}
           <motion.div
