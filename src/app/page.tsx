@@ -36,7 +36,7 @@ export default function Home() {
               src="/freezervials.jpg"
               alt="Lab Freezer Vials"
               fill
-              className="object-cover opacity-10"
+              className="object-cover opacity-20"
               priority
             />
           </div>
