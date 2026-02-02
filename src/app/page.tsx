@@ -199,7 +199,7 @@ export default function Home() {
       {/* FAQ Section */}
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
         {/* Background GIF */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08]">
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15]">
           <Image
             src="/Untitled design (1).gif"
             alt=""
