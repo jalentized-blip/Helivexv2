@@ -238,11 +238,11 @@ export default function Home() {
             <p className="text-lg text-primary-foreground/80">
               When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
             </p>
-            <div className="pt-8">
-              <Link href="/about" className="bg-secondary text-secondary-foreground px-10 py-4 rounded-full font-black tracking-widest hover:bg-white hover:text-primary transition-all duration-300 shadow-xl">
-                LEARN MORE ABOUT OUR STANDARDS
-              </Link>
-            </div>
+            <div className="pt-4">
+                <Link href="/about" className="bg-secondary text-secondary-foreground px-10 py-4 rounded-full font-black tracking-widest hover:bg-white hover:text-primary transition-all duration-300 shadow-xl">
+                  LEARN MORE ABOUT OUR STANDARDS
+                </Link>
+              </div>
           </div>
         </div>
       </section>
