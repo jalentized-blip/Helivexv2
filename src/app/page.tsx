@@ -214,22 +214,22 @@ export default function Home() {
 
       {/* Mission Section */}
       <section 
-         className="py-16 md:py-24 bg-primary text-primary-foreground relative overflow-visible"
-         style={{ 
-             clipPath: 'polygon(0 10%, 100% 0, 100% 90%, 0 100%)',
-             marginTop: '-4rem',
-             marginBottom: '-4rem'
-           }}
-       >
-         <div className="absolute inset-0 opacity-[0.05] pointer-events-none overflow-hidden">
-           <div className="absolute -right-20 -top-20 w-[600px] h-[600px] rotate-12">
-             <LabIcons.Structure />
-           </div>
-           <div className="absolute -left-20 -bottom-20 w-[400px] h-[400px] -rotate-12">
-             <LabIcons.DNA />
-           </div>
-         </div>
-         <div className="container relative z-10 py-8 text-center flex flex-col items-center">
+          className="py-10 md:py-12 bg-primary text-primary-foreground relative overflow-visible"
+          style={{ 
+              clipPath: 'polygon(0 5%, 100% 0, 100% 95%, 0 100%)',
+              marginTop: '-2.5rem',
+              marginBottom: '-2.5rem'
+            }}
+        >
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none overflow-hidden">
+            <div className="absolute -right-20 -top-20 w-[600px] h-[600px] rotate-12">
+              <LabIcons.Structure />
+            </div>
+            <div className="absolute -left-20 -bottom-20 w-[400px] h-[400px] -rotate-12">
+              <LabIcons.DNA />
+            </div>
+          </div>
+          <div className="container relative z-10 text-center flex flex-col items-center">
           <div className="max-w-3xl space-y-8">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">OUR MISSION</h2>
             <p className="text-xl md:text-2xl leading-relaxed text-primary-foreground/90 font-medium">
