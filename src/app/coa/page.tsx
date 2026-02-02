@@ -360,14 +360,20 @@ export default function COAPage() {
                     rotateY: rotation.y,
                   }}
                   transition={{ type: "spring", stiffness: 150, damping: 30 }}
+                  style={{ transformStyle: 'preserve-3d' }}
                   className="relative group"
                 >
-                  <div className="bg-zinc-100 border border-zinc-200 w-[350px] md:w-[500px] aspect-[3/4] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] overflow-hidden relative">
+                  {/* Main Document Face */}
+                  <div 
+                    className="bg-white border border-zinc-200 w-[350px] md:w-[500px] aspect-[3/4] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] overflow-hidden relative z-10"
+                    style={{ transform: 'translateZ(10px)' }}
+                  >
                     {selectedCOA?.image ? (
                       <img 
                         src={selectedCOA.image} 
                         className="w-full h-full object-contain bg-white"
                         alt={`${selectedCOA.name} COA Analysis`}
+                        key={selectedCOA.id} // Force re-render on change
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-zinc-50">
@@ -377,9 +383,16 @@ export default function COAPage() {
                     {/* Subtle Paper Overlay */}
                     <div className="absolute inset-0 pointer-events-none border-[1px] border-black/5 shadow-inner" />
                   </div>
-                  {/* 3D Depth Edges */}
-                  <div className="absolute inset-0 bg-zinc-100 translate-z-[-2px] border border-zinc-200" />
-                  <div className="absolute inset-0 bg-zinc-50 translate-z-[-4px] border border-zinc-200" />
+
+                  {/* 3D Depth Edges (Stacked behind) */}
+                  <div 
+                    className="absolute inset-0 bg-zinc-100 border border-zinc-200" 
+                    style={{ transform: 'translateZ(5px)' }}
+                  />
+                  <div 
+                    className="absolute inset-0 bg-zinc-50 border border-zinc-200" 
+                    style={{ transform: 'translateZ(0px)' }}
+                  />
                 </motion.div>
               </div>
 

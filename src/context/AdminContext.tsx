@@ -41,7 +41,25 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     const savedProducts = localStorage.getItem('helivex_products');
     if (savedProducts) {
       try {
-        setProducts(JSON.parse(savedProducts));
+        const parsed = JSON.parse(savedProducts);
+        // Merge saved data with initial data to ensure new fields are present
+        const merged = initialProducts.map(initial => {
+          const saved = parsed.find((p: Product) => p.id === initial.id);
+          if (saved) {
+            // Keep saved pricing/description but prefer initial for COA fields if they were recently added
+            return {
+              ...initial,
+              ...saved,
+              // Force latest COA fields from code if they exist in initial but not in saved
+              coaImage: initial.coaImage || saved.coaImage,
+              coaBatch: initial.coaBatch || saved.coaBatch,
+              coaMass: initial.coaMass || saved.coaMass,
+              coaDate: initial.coaDate || saved.coaDate,
+            };
+          }
+          return initial;
+        });
+        setProducts(merged);
       } catch (e) {
         console.error('Failed to parse saved products', e);
       }
