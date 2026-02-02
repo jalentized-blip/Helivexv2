@@ -4,13 +4,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Menu, Search, User, Pencil } from 'lucide-react';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useAdmin } from '@/context/AdminContext';
 import { useUser } from '@/context/UserContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
   const { isEditMode, setIsEditMode } = useAdmin();
   const { user, isAuthenticated } = useUser();
+
+  const isHomePage = pathname === '/';
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md">
@@ -52,13 +56,15 @@ export default function Header() {
               CONTACT
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full" />
             </Link>
-            <button 
-              onClick={() => setIsEditMode(!isEditMode)}
-              className={`ml-[-10px] p-1.5 rounded-full transition-all ${isEditMode ? 'bg-primary text-white scale-110 shadow-lg' : 'text-zinc-400 hover:text-primary hover:bg-primary/5'}`}
-              title={isEditMode ? "Exit Edit Mode" : "Enter Edit Mode"}
-            >
-              <Pencil size={14} className={isEditMode ? "animate-pulse" : ""} />
-            </button>
+            {!isHomePage && (
+              <button 
+                onClick={() => setIsEditMode(!isEditMode)}
+                className={`ml-[-10px] p-1.5 rounded-full transition-all ${isEditMode ? 'bg-primary text-white scale-110 shadow-lg' : 'text-zinc-400 hover:text-primary hover:bg-primary/5'}`}
+                title={isEditMode ? "Exit Edit Mode" : "Enter Edit Mode"}
+              >
+                <Pencil size={14} className={isEditMode ? "animate-pulse" : ""} />
+              </button>
+            )}
           </nav>
         </div>
 
