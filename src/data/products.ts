@@ -74,5 +74,31 @@ export const products: Product[] = [
     hasKit: true,
     kitPrice: 150.00,
     coaImage: '/coa-placeholder.jpg'
+  },
+  {
+    id: 'tirz',
+    name: 'TIRZEPATIDE',
+    image: '/vial.png',
+    description: 'High-purity Tirzepatide for advanced research applications.',
+    category: 'Peptides',
+    strengths: [
+      { id: '10mg', label: '10mg', price: 120.00 }
+    ],
+    hasKit: true,
+    kitPrice: 450.00,
+    coaImage: '/t30barn.png'
+  },
+  {
+    id: 'reta',
+    name: 'RETATRUTIDE',
+    image: '/vial.png',
+    description: 'Next-generation research compound for metabolic studies.',
+    category: 'Peptides',
+    strengths: [
+      { id: '5mg', label: '5mg', price: 150.00 }
+    ],
+    hasKit: true,
+    kitPrice: 550.00,
+    coaImage: '/coa-placeholder.jpg'
   }
 ];

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, products as initialProducts } from '@/data/products';
+import { updateProducts } from '@/app/actions/updateProducts';
 
 interface AdminContextType {
   isEditMode: boolean;
@@ -11,6 +12,7 @@ interface AdminContextType {
   updateProduct: (updatedProduct: Product) => void;
   addProduct: (newProduct: Product) => void;
   deleteProduct: (productId: string) => void;
+  pushToLive: () => Promise<{ success: boolean; error?: string; message?: string }>;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -69,6 +71,16 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('helivex_products', JSON.stringify(newProducts));
   };
 
+  const pushToLive = async () => {
+    try {
+      const result = await updateProducts(products);
+      return result;
+    } catch (error) {
+      console.error('Failed to push products to live:', error);
+      return { success: false, error: 'Failed to push updates' };
+    }
+  };
+
   return (
     <AdminContext.Provider value={{ 
       isEditMode, 
@@ -77,7 +89,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       products, 
       updateProduct, 
       addProduct, 
-      deleteProduct 
+      deleteProduct,
+      pushToLive
     }}>
       {children}
     </AdminContext.Provider>

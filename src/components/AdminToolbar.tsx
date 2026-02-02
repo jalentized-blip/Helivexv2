@@ -42,9 +42,13 @@ export default function AdminToolbar() {
           {isEditMode ? 'EXIT EDIT MODE' : 'ENTER EDIT MODE'}
         </button>
 
-        <button className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white/50">
+        <Link 
+          href="/admin" 
+          className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white/50"
+          title="Admin Dashboard"
+        >
           <Settings className="h-4 w-4" />
-        </button>
+        </Link>
       </motion.div>
       
       {isEditMode && (

@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Zap, ChevronDown, Camera, FlaskConical, Microscope, Activity } from 'lucide-react';
-import { products } from '@/data/products';
 import ScrollingBanner from '@/components/ScrollingBanner';
 import EditableText from '@/components/EditableText';
 import { useAdmin } from '@/context/AdminContext';
@@ -14,7 +13,7 @@ import { updateHeroText } from '@/app/actions/updateHeroText';
 import ProductCard from '@/components/shop/ProductCard';
 
 export default function Home() {
-  const { isEditMode } = useAdmin();
+  const { isEditMode, products } = useAdmin();
 
   const handleSaveHeroText = async (newText: string) => {
     const result = await updateHeroText(newText);

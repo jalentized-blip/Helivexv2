@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import { Product, ProductStrength } from '@/data/products';
-import { Plus, Trash2, Save, X, Image as ImageIcon, Beaker, Tag, FileText, ChevronRight, ChevronDown } from 'lucide-react';
+import { Plus, Trash2, Save, X, Image as ImageIcon, Beaker, Tag, FileText, ChevronRight, ChevronDown, CloudLightning, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminPage() {
-  const { isAdmin, products, updateProduct, addProduct, deleteProduct } = useAdmin();
+  const { isAdmin, products, updateProduct, addProduct, deleteProduct, pushToLive } = useAdmin();
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
+  const [isPushing, setIsPushing] = useState(false);
+  const [pushStatus, setPushStatus] = useState<{ success?: boolean; message?: string } | null>(null);
 
   // If not admin, show access denied (though in a real app this would be server-side)
   if (!isAdmin) {
@@ -88,6 +90,22 @@ export default function AdminPage() {
     }
   };
 
+  const handlePushToLive = async () => {
+    setIsPushing(true);
+    setPushStatus(null);
+    try {
+      const result = await pushToLive();
+      setPushStatus({ success: result.success, message: result.message || (result.success ? 'Updates pushed successfully!' : result.error) });
+      if (result.success) {
+        setTimeout(() => setPushStatus(null), 5000);
+      }
+    } catch (error) {
+      setPushStatus({ success: false, message: 'An unexpected error occurred.' });
+    } finally {
+      setIsPushing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50 pb-20">
       {/* Header */}
@@ -102,13 +120,35 @@ export default function AdminPage() {
               <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Product Management & Global Pricing</p>
             </div>
           </div>
-          <button 
-            onClick={handleAddNewClick}
-            className="bg-primary text-white px-6 py-2.5 rounded-xl font-black text-xs tracking-widest flex items-center gap-2 hover:bg-accent transition-all shadow-lg shadow-primary/20"
-          >
-            <Plus className="h-4 w-4" />
-            ADD PRODUCT
-          </button>
+          <div className="flex items-center gap-4">
+            {pushStatus && (
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold animate-in fade-in slide-in-from-right-4 ${pushStatus.success ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {pushStatus.success ? <CheckCircle2 className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
+                {pushStatus.message}
+              </div>
+            )}
+            
+            <button 
+              onClick={handlePushToLive}
+              disabled={isPushing}
+              className="bg-zinc-900 text-white px-6 py-2.5 rounded-xl font-black text-xs tracking-widest flex items-center gap-2 hover:bg-zinc-800 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isPushing ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <CloudLightning className="h-4 w-4 text-yellow-400" />
+              )}
+              {isPushing ? 'PUSHING...' : 'PUSH TO LIVE'}
+            </button>
+
+            <button 
+              onClick={handleAddNewClick}
+              className="bg-primary text-white px-6 py-2.5 rounded-xl font-black text-xs tracking-widest flex items-center gap-2 hover:bg-accent transition-all shadow-lg shadow-primary/20"
+            >
+              <Plus className="h-4 w-4" />
+              ADD PRODUCT
+            </button>
+          </div>
         </div>
       </div>
 
@@ -282,7 +322,7 @@ export default function AdminPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-6 border-t border-zinc-200 flex items-center justify-between gap-4">
+                  <div className="pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-6">
                     {!isAddingNew && (
                       <button 
                         onClick={() => {
@@ -291,25 +331,31 @@ export default function AdminPage() {
                             setEditingProduct(null);
                           }
                         }}
-                        className="text-red-600 font-black text-[10px] tracking-widest uppercase px-6 py-4 rounded-2xl hover:bg-red-50 transition-colors"
+                        className="text-red-600 font-black text-[10px] tracking-widest uppercase px-6 py-4 rounded-2xl hover:bg-red-50 transition-colors w-full sm:w-auto order-3 sm:order-1"
                       >
                         Delete Product
                       </button>
                     )}
-                    <div className="flex-grow" />
-                    <button 
-                      onClick={() => setEditingProduct(null)}
-                      className="px-8 py-4 font-black text-[10px] tracking-widest uppercase text-zinc-400 hover:text-zinc-600 transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button 
-                      onClick={handleSave}
-                      className="bg-primary text-white px-12 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 hover:bg-accent transition-all shadow-xl shadow-primary/20"
-                    >
-                      <Save className="h-4 w-4" />
-                      SAVE ALL CHANGES
-                    </button>
+                    <div className="flex-grow hidden sm:block order-2" />
+                    <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto order-1 sm:order-3">
+                      <div className="text-right hidden md:block">
+                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Saves to local browser cache</p>
+                        <p className="text-[8px] font-medium text-zinc-300 uppercase tracking-tighter italic">Push to live to sync globally</p>
+                      </div>
+                      <button 
+                        onClick={() => setEditingProduct(null)}
+                        className="px-8 py-4 font-black text-[10px] tracking-widest uppercase text-zinc-400 hover:text-zinc-600 transition-colors w-full sm:w-auto"
+                      >
+                        Cancel
+                      </button>
+                      <button 
+                        onClick={handleSave}
+                        className="bg-primary text-white px-12 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase flex items-center justify-center gap-2 hover:bg-accent transition-all shadow-xl shadow-primary/20 w-full sm:w-auto"
+                      >
+                        <Save className="h-4 w-4" />
+                        {isAddingNew ? 'REGISTER PRODUCT' : 'SAVE CHANGES'}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

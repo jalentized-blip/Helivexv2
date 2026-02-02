@@ -6,47 +6,33 @@ import { FileText, ArrowLeft, CheckCircle2, ShieldCheck, Search, Download, Flask
 import Link from 'next/link';
 import { useAdmin } from '@/context/AdminContext';
 
-const INITIAL_COA_DATA = [
-  {
-    id: 'reta-1',
-    name: 'RETATRUTIDE',
-    batch: 'HXV-RETA-2026-01',
-    purity: '99.421%',
-    quantity: '5mg',
-    weight: '5162.34 g/mol',
-    date: 'JAN 15, 2026',
-    ref: '#HXV-2026-0882',
-    image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: 'tirz-1',
-    name: 'TIRZEPATIDE',
-    batch: 'HXV-TIRZ-2026-05',
-    purity: '99.242%',
-    quantity: '10mg',
-    weight: '4813.52 g/mol',
-    date: 'FEB 01, 2026',
-    ref: '#HXV-2026-0442',
-    image: 'https://images.unsplash.com/photo-1579154273155-08e826359516?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: 'mots-c-1',
-    name: 'MOTS-C',
-    batch: 'HXV-MOTS-2026-12',
-    purity: '99.115%',
-    quantity: '5mg',
-    weight: '2174.62 g/mol',
-    date: 'JAN 28, 2026',
-    ref: '#HXV-2026-1129',
-    image: 'https://images.unsplash.com/photo-1532187875605-1ef6c237a195?auto=format&fit=crop&q=80&w=800'
-  }
-];
-
 export default function COAPage() {
-  const { isAdmin } = useAdmin();
+  const { isAdmin, products } = useAdmin();
   const [view, setView] = useState<'table' | 'gallery' | 'examine'>('table');
-  const [coas, setCoas] = useState(INITIAL_COA_DATA);
-  const [selectedCOA, setSelectedCOA] = useState<null | typeof INITIAL_COA_DATA[0]>(null);
+  
+  // Derive COA data from products
+  const derivedCoas = React.useMemo(() => {
+    return products.map(product => ({
+      id: product.id,
+      name: product.name,
+      batch: `HXV-${product.id.toUpperCase()}-2026-01`,
+      purity: '99.421%', // Default purity if not specified
+      quantity: product.strengths[0]?.label || '5mg',
+      weight: '5162.34 g/mol', // Default weight
+      date: 'JAN 15, 2026',
+      ref: `#HXV-2026-${Math.floor(Math.random() * 9000 + 1000)}`,
+      image: product.coaImage || '/coa-placeholder.jpg'
+    }));
+  }, [products]);
+
+  const [coas, setCoas] = useState(derivedCoas);
+  
+  // Sync coas when products change (e.g. from local storage or push to live)
+  React.useEffect(() => {
+    setCoas(derivedCoas);
+  }, [derivedCoas]);
+
+  const [selectedCOA, setSelectedCOA] = useState<null | typeof derivedCoas[0]>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -60,7 +46,7 @@ export default function COAPage() {
     setRotation({ x: x * 30, y: -y * 30 });
   };
 
-  const handleDocumentClick = (coa: typeof INITIAL_COA_DATA[0]) => {
+  const handleDocumentClick = (coa: any) => {
     setSelectedCOA(coa);
     setView('examine');
   };
