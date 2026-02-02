@@ -7,12 +7,14 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAdmin } from '@/context/AdminContext';
 import { useUser } from '@/context/UserContext';
+import { useCart } from '@/context/CartContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { isEditMode, setIsEditMode } = useAdmin();
   const { user, isAuthenticated } = useUser();
+  const { itemCount } = useCart();
 
   const isHomePage = pathname === '/';
 
@@ -92,7 +94,11 @@ export default function Header() {
 
           <Link href="/checkout" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full relative">
             <ShoppingCart className="h-4 w-4" />
-            <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-primary text-[8px] font-bold text-white flex items-center justify-center">0</span>
+            {itemCount > 0 && (
+              <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-primary text-[8px] font-bold text-white flex items-center justify-center animate-in zoom-in duration-300">
+                {itemCount}
+              </span>
+            )}
           </Link>
           <button 
             className="md:hidden p-2 transition-colors hover:text-primary"

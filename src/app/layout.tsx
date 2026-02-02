@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AdminProvider } from "@/context/AdminContext";
 import { UserProvider } from "@/context/UserContext";
+import { CartProvider } from "@/context/CartContext";
 import AdminToolbar from "@/components/AdminToolbar";
 
 const geistSans = Geist({
@@ -72,12 +73,14 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}>
         <UserProvider>
           <AdminProvider>
-            <Header />
-            <main className="flex-grow overflow-x-hidden">
-              {children}
-            </main>
-            <Footer />
-            <AdminToolbar />
+            <CartProvider>
+              <Header />
+              <main className="flex-grow overflow-x-hidden">
+                {children}
+              </main>
+              <Footer />
+              <AdminToolbar />
+            </CartProvider>
           </AdminProvider>
         </UserProvider>
       </body>

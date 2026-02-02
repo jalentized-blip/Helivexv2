@@ -3,23 +3,40 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
-import { FlaskConical, ShieldCheck, Truck, Beaker, X, FileText, ChevronRight } from 'lucide-react';
+import { FlaskConical, ShieldCheck, Truck, Beaker, X, FileText, ChevronRight, Check } from 'lucide-react';
 import { useAdmin } from '@/context/AdminContext';
+import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 
 export default function ProductClient() {
   const params = useParams();
   const { products } = useAdmin();
+  const { addItem } = useCart();
   const product = useMemo(() => products.find((p) => p.id === params.id), [products, params.id]);
   
   const [selectedStrengthId, setSelectedStrengthId] = useState(product?.strengths[0]?.id || '');
   const [quantity, setQuantity] = useState(1);
   const [showCoa, setShowCoa] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const selectedStrength = useMemo(() => 
     product?.strengths.find(s => s.id === selectedStrengthId),
     [product, selectedStrengthId]
   );
+
+  const handleAddToCart = () => {
+    if (!product || !selectedStrength) return;
+    
+    setIsAdding(true);
+    addItem(product, selectedStrength, quantity);
+    
+    setTimeout(() => {
+      setIsAdding(false);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }, 600);
+  };
 
   const currentPrice = selectedStrength ? selectedStrength.price : 0;
 
@@ -131,9 +148,28 @@ export default function ProductClient() {
                   >+</button>
                 </div>
                 
-                <button className="flex-grow bg-primary text-white font-black tracking-[0.2em] py-4 rounded-xl shadow-xl shadow-primary/20 flex items-center justify-center gap-3 hover:bg-accent active:scale-[0.98] transition-all">
-                  <FlaskConical className="h-5 w-5" />
-                  <span>BUY RESEARCH PEPTIDE</span>
+                <button 
+                  onClick={handleAddToCart}
+                  disabled={isAdding || added}
+                  className={`flex-grow font-black tracking-[0.2em] py-4 rounded-xl shadow-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] ${
+                    added 
+                    ? 'bg-emerald-500 text-white shadow-emerald-500/20' 
+                    : 'bg-primary text-white shadow-primary/20 hover:bg-accent'
+                  }`}
+                >
+                  {isAdding ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : added ? (
+                    <>
+                      <Check className="h-5 w-5" />
+                      <span>ADDED TO CART</span>
+                    </>
+                  ) : (
+                    <>
+                      <FlaskConical className="h-5 w-5" />
+                      <span>BUY RESEARCH PEPTIDE</span>
+                    </>
+                  )}
                 </button>
               </div>
 
