@@ -25,7 +25,7 @@ export const products: Product[] = [
   {
     "id": "tesa",
     "name": "TESA",
-    "image": "/vial.png",
+    "image": "/TESA.png",
     "description": "High purity TESA for research purposes.",
     "category": "Peptides",
     "isBestSeller": true,
