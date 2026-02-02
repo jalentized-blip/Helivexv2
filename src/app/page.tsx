@@ -200,17 +200,13 @@ export default function Home() {
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
         {/* Background Swirl Photo */}
         <div 
-          className="absolute inset-0 md:left-1/3 md:w-2/3 z-0 pointer-events-none opacity-[0.45] md:opacity-[0.6] mix-blend-multiply"
-          style={{
-            maskImage: 'radial-gradient(circle at center, black 20%, transparent 90%)',
-            WebkitMaskImage: 'radial-gradient(circle at center, black 20%, transparent 90%)',
-          }}
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.8]"
         >
           <Image
             src="/swirl.jpg"
             alt=""
             fill
-            className="object-cover object-center md:object-right"
+            className="object-cover object-center"
           />
         </div>
         <div className="container relative z-10">
