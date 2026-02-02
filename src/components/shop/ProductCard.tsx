@@ -51,19 +51,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
       
       {/* Info Section */}
-      <div className="p-5 flex flex-col gap-4">
+      <div className="p-5 flex flex-col gap-4 bg-zinc-50/50">
         <div className="space-y-1">
           <Link href={`/product/${product.id}`} className="block">
-            <h3 className="font-bold text-lg group-hover:text-primary transition-colors">{product.name}</h3>
+            <h3 className="font-bold text-lg group-hover:text-primary transition-colors uppercase tracking-tight">{product.name}</h3>
           </Link>
           <div className="flex items-center justify-between">
-            <p className="text-primary font-black text-xl tracking-tight">${product.price.toFixed(2)}</p>
+            <p className="text-primary font-black text-2xl tracking-tighter">${product.price.toFixed(2)}</p>
           </div>
         </div>
 
         <Link 
           href={`/product/${product.id}`}
-          className="w-full bg-primary text-white text-[11px] font-black tracking-[0.3em] py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn relative overflow-hidden transition-all hover:bg-accent active:scale-[0.98] border border-white/20"
+          className="w-full bg-primary text-white text-[12px] font-black tracking-[0.4em] py-5 rounded-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-3 group/btn relative overflow-hidden transition-all hover:bg-black active:scale-[0.95] border-2 border-white/20"
         >
           <FlaskConical className="h-3.5 w-3.5 relative z-10" />
           <span className="relative z-10 uppercase">ADD TO RESEARCH</span>
