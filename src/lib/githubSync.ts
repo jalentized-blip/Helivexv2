@@ -20,9 +20,15 @@ export async function updateFileOnGitHub(filePath: string, content: string, comm
     });
 
     if (!getRes.ok) {
-      const errorData = await getRes.json();
+      const errorText = await getRes.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { message: errorText };
+      }
       console.error('Failed to get file from GitHub:', errorData);
-      return { success: false, error: `GitHub API error: ${errorData.message}` };
+      return { success: false, error: `GitHub API error (${getRes.status}): ${errorData.message || errorText}` };
     }
 
     const fileData = await getRes.json();
@@ -46,9 +52,15 @@ export async function updateFileOnGitHub(filePath: string, content: string, comm
     });
 
     if (!updateRes.ok) {
-      const errorData = await updateRes.json();
+      const errorText = await updateRes.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { message: errorText };
+      }
       console.error('Failed to update file on GitHub:', errorData);
-      return { success: false, error: `GitHub API update error: ${errorData.message}` };
+      return { success: false, error: `GitHub API update error (${updateRes.status}): ${errorData.message || errorText}` };
     }
 
     console.log(`Successfully updated ${filePath} on GitHub`);

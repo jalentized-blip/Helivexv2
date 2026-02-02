@@ -31,6 +31,9 @@ export interface Product {
   hasKit: boolean;
   kitPrice?: number;
   coaImage?: string;
+  coaBatch?: string;
+  coaMass?: string;
+  coaDate?: string;
 }
 
 export const products: Product[] = ${JSON.stringify(newProducts, null, 2)};
