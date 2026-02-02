@@ -200,17 +200,17 @@ export default function Home() {
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
         {/* Background GIF */}
         <div 
-          className="absolute right-0 top-0 bottom-0 w-1/2 z-0 pointer-events-none opacity-[0.08]"
+          className="absolute inset-0 md:left-1/2 md:w-1/2 z-0 pointer-events-none opacity-[0.06] blur-[2px] md:blur-0"
           style={{
-            maskImage: 'linear-gradient(to right, transparent, black 40%)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 40%)',
+            maskImage: 'radial-gradient(circle at center, black, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)',
           }}
         >
           <Image
             src="/Untitled design (1).gif"
             alt=""
             fill
-            className="object-cover object-right"
+            className="object-cover object-center md:object-right"
             unoptimized
           />
         </div>
