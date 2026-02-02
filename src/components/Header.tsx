@@ -17,7 +17,7 @@ export default function Header() {
   const isHomePage = pathname === '/';
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md pink-metallic-glow">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">

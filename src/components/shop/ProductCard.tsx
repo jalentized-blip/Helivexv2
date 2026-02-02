@@ -20,7 +20,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     : `$${minPrice.toFixed(2)}`;
 
   return (
-    <div className="group flex flex-col bg-white rounded-2xl border border-border overflow-hidden transition-all hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20">
+    <div className="group flex flex-col bg-white rounded-2xl border border-border overflow-hidden transition-all hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 pink-metallic-glow">
       {/* Image Section */}
       <Link href={`/product/${product.id}`} className="aspect-[4/5] relative bg-zinc-50 overflow-hidden flex items-center justify-center p-8">
         {/* Subtle Lab Background Pattern for Cards */}

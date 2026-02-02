@@ -33,7 +33,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center overflow-hidden bg-white reflective-glow">
+      <section className="relative h-[80vh] flex items-center overflow-hidden bg-white reflective-glow pink-metallic-glow">
         {/* Animated Lab Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           {/* Background Image: freezervials.jpg */}
@@ -96,7 +96,7 @@ export default function Home() {
       <MissionSection />
 
       {/* Trust Badges */}
-      <section className="py-12 border-b border-border bg-muted/50">
+      <section className="py-12 border-b border-border bg-muted/50 pink-metallic-glow">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex items-center gap-4 p-6 bg-white rounded-lg shadow-sm">
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-24 bg-zinc-50/50 relative reflective-glow">
+      <section className="py-24 bg-zinc-50/50 relative reflective-glow pink-metallic-glow">
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div className="space-y-2">
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white overflow-hidden relative reflective-glow">
+      <section className="py-24 bg-white overflow-hidden relative reflective-glow pink-metallic-glow">
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
             <h2 className="text-3xl font-bold tracking-tight text-center mb-12 uppercase">FREQUENTLY ASKED QUESTIONS</h2>
