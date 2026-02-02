@@ -115,11 +115,11 @@ export default function MissionSection() {
       <div className="container mx-auto px-6">
         
         {/* Mission Text */}
-        <div className="max-w-4xl mx-auto text-center space-y-8 mb-32">
+        <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8 mb-16 md:mb-32">
           <motion.h2 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-4xl font-black tracking-tight text-primary uppercase"
+            className="text-3xl md:text-4xl font-black tracking-tight text-primary uppercase"
           >
             Purity & Sourcing
           </motion.h2>
@@ -127,7 +127,7 @@ export default function MissionSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-zinc-600 leading-relaxed text-lg"
+            className="text-zinc-600 leading-relaxed text-base md:text-lg px-4 md:px-0"
           >
             At Helivex Labs, we prioritize absolute peptide purity and meticulous sourcing. Every compound in our inventory undergoes a rigorous selection process and comprehensive third-party laboratory analysis to ensure it meets the highest scientific standards for your research.
           </motion.p>
@@ -135,7 +135,7 @@ export default function MissionSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-primary font-black text-lg italic"
+            className="text-primary font-black text-base md:text-lg italic px-4 md:px-0"
           >
             Our commitment to purity is driven by a collective vetting standard, ensuring every research compound meets the uncompromising quality that defines us.
           </motion.p>

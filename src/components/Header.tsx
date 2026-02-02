@@ -16,8 +16,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-12 h-12 flex-shrink-0">
+          <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
               <Image 
                 src="/logo.png" 
                 alt="Helivex Labs Logo" 
@@ -27,7 +27,7 @@ export default function Header() {
               />
             </div>
             <div className="relative">
-              <span className="text-2xl font-bold tracking-tighter text-primary">HELIVEX <span className="text-secondary-foreground font-light">LABS</span></span>
+              <span className="text-lg md:text-2xl font-bold tracking-tighter text-primary uppercase whitespace-nowrap">HELIVEX <span className="text-secondary-foreground font-light">LABS</span></span>
               <div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all group-hover:w-full" />
             </div>
           </Link>

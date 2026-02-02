@@ -29,11 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col overflow-x-hidden`}>
         <UserProvider>
           <AdminProvider>
             <Header />
-            <main className="flex-grow">
+            <main className="flex-grow overflow-x-hidden">
               {children}
             </main>
             <Footer />

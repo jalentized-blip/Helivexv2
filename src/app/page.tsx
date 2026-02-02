@@ -68,7 +68,7 @@ export default function Home() {
               <Activity size={12} />
               <span>Research Protocol Active</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-zinc-900">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-zinc-900">
               PRECISION IN <br />
               <span className="text-primary italic">RESEARCH.</span>
             </h1>
@@ -181,11 +181,11 @@ export default function Home() {
            </div>
            <div className="container relative z-10 text-center flex flex-col items-center">
             <div className="max-w-3xl space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">OUR MISSION</h2>
-              <p className="text-xl md:text-2xl leading-relaxed text-primary-foreground/90 font-medium">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">OUR MISSION</h2>
+              <p className="text-lg md:text-2xl leading-relaxed text-primary-foreground/90 font-medium px-4 md:px-0">
                 At Helivex Labs, our purpose is to deliver research peptides at fair, transparent prices. We are built on a foundation of trust, integrity, and uncompromising standards, ensuring the research community can rely on us every step of the way.
               </p>
-              <p className="text-lg text-primary-foreground/80">
+              <p className="text-base md:text-lg text-primary-foreground/80 px-4 md:px-0">
                 When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
               </p>
               <div className="pt-2">
