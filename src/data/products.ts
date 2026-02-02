@@ -121,7 +121,7 @@ export const products: Product[] = [
   {
     "id": "tirz",
     "name": "TIRZEPATIDE",
-    "image": "/vial.png",
+    "image": "/glp2t.png",
     "description": "High-purity Tirzepatide for advanced research applications.",
     "category": "Peptides",
     "strengths": [
