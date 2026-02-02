@@ -8,6 +8,9 @@ interface AdminContextType {
   isEditMode: boolean;
   setIsEditMode: (value: boolean) => void;
   isAdmin: boolean;
+  userEmail: string | null;
+  login: (email: string) => void;
+  logout: () => void;
   products: Product[];
   updateProduct: (updatedProduct: Product) => void;
   addProduct: (newProduct: Product) => void;
@@ -16,19 +19,25 @@ interface AdminContextType {
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
+const ADMIN_EMAILS = ['jalentized@gmail.com'];
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [products, setProducts] = useState<Product[]>(initialProducts);
 
   useEffect(() => {
-    // Check for admin status
+    // Check for admin status via email or legacy token
     const urlParams = new URLSearchParams(window.location.search);
     const adminToken = urlParams.get('admin');
-    if (adminToken === 'true' || localStorage.getItem('helivex_admin') === 'true') {
+    const savedEmail = localStorage.getItem('helivex_admin_email');
+
+    if (savedEmail && ADMIN_EMAILS.includes(savedEmail)) {
       setIsAdmin(true);
-      if (adminToken === 'true') localStorage.setItem('helivex_admin', 'true');
+      setUserEmail(savedEmail);
+    } else if (adminToken === 'true' || localStorage.getItem('helivex_admin') === 'true') {
+      setIsAdmin(true);
     }
 
     // Persist edit mode across refreshes
@@ -65,6 +74,24 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       }
     }
   }, []);
+
+  const login = (email: string) => {
+    if (ADMIN_EMAILS.includes(email)) {
+      setIsAdmin(true);
+      setUserEmail(email);
+      localStorage.setItem('helivex_admin_email', email);
+      localStorage.setItem('helivex_admin', 'true');
+    }
+  };
+
+  const logout = () => {
+    setIsAdmin(false);
+    setUserEmail(null);
+    setIsEditMode(false);
+    localStorage.removeItem('helivex_admin_email');
+    localStorage.removeItem('helivex_admin');
+    localStorage.removeItem('helivex_edit_mode');
+  };
 
   const toggleEditMode = (value: boolean) => {
     setIsEditMode(value);
@@ -104,6 +131,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       isEditMode, 
       setIsEditMode: toggleEditMode, 
       isAdmin, 
+      userEmail,
+      login,
+      logout,
       products, 
       updateProduct, 
       addProduct, 

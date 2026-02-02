@@ -3,30 +3,63 @@
 import React, { useState, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import { Product, ProductStrength } from '@/data/products';
-import { Plus, Trash2, Save, X, Image as ImageIcon, Beaker, Tag, FileText, ChevronRight, ChevronDown, CloudLightning, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Plus, Trash2, Save, X, Image as ImageIcon, Beaker, Tag, FileText, ChevronRight, ChevronDown, CloudLightning, Loader2, CheckCircle2, AlertCircle, LogIn, Mail, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function AdminPage() {
-  const { isAdmin, products, updateProduct, addProduct, deleteProduct, pushToLive } = useAdmin();
+  const { isAdmin, products, updateProduct, addProduct, deleteProduct, pushToLive, login, userEmail, logout } = useAdmin();
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [isPushing, setIsPushing] = useState(false);
   const [pushStatus, setPushStatus] = useState<{ success?: boolean; message?: string } | null>(null);
+  const [emailInput, setEmailInput] = useState('');
 
-  // If not admin, show access denied (though in a real app this would be server-side)
+  // If not admin, show login
   if (!isAdmin) {
     return (
-      <div className="min-h-[80vh] flex flex-col items-center justify-center p-4">
-        <div className="bg-red-50 border border-red-200 p-8 rounded-3xl max-w-md text-center space-y-4">
-          <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-            <X className="text-red-600 h-8 w-8" />
+      <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white border border-zinc-200 p-10 rounded-[2.5rem] shadow-2xl max-w-md w-full text-center space-y-8"
+        >
+          <div className="bg-primary/10 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto rotate-12 group-hover:rotate-0 transition-transform">
+            <Beaker className="text-primary h-10 w-10" />
           </div>
-          <h1 className="text-2xl font-black text-red-900">ACCESS DENIED</h1>
-          <p className="text-red-700 font-medium">This control panel is strictly for authorized personnel only.</p>
-          <Link href="/" className="inline-block bg-red-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-colors">
-            Return Home
-          </Link>
-        </div>
+          
+          <div className="space-y-2">
+            <h1 className="text-3xl font-black tracking-tighter text-zinc-900 uppercase">Admin Access</h1>
+            <p className="text-zinc-500 font-medium text-sm">Enter your authorized researcher email to continue.</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="relative">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
+              <input 
+                type="email"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                placeholder="Researcher Email"
+                className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl pl-12 pr-4 py-4 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+              />
+            </div>
+            
+            <button 
+              onClick={() => login(emailInput)}
+              className="w-full bg-zinc-900 text-white py-5 rounded-2xl font-black text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3 hover:bg-zinc-800 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
+            >
+              <LogIn className="h-4 w-4" />
+              AUTHENTICATE_SESSION
+            </button>
+          </div>
+
+          <div className="pt-4 border-t border-zinc-100">
+            <Link href="/" className="text-[10px] font-black text-zinc-400 hover:text-primary transition-colors tracking-widest uppercase">
+              ← Return to Helivex Labs
+            </Link>
+          </div>
+        </motion.div>
       </div>
     );
   }
@@ -117,7 +150,10 @@ export default function AdminPage() {
             </div>
             <div>
               <h1 className="text-xl font-black tracking-tight uppercase">Admin Control Panel</h1>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Product Management & Global Pricing</p>
+              <div className="flex items-center gap-2">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Product Management & Global Pricing</p>
+                <span className="text-[10px] font-black text-primary px-2 py-0.5 bg-primary/5 rounded-full border border-primary/10">{userEmail}</span>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -147,6 +183,14 @@ export default function AdminPage() {
             >
               <Plus className="h-4 w-4" />
               ADD PRODUCT
+            </button>
+
+            <button 
+              onClick={logout}
+              className="p-2.5 text-zinc-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+              title="Logout"
+            >
+              <LogOut className="h-5 w-5" />
             </button>
           </div>
         </div>
