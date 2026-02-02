@@ -16,6 +16,9 @@ export interface Product {
   hasKit: boolean;
   kitPrice?: number;
   coaImage?: string;
+  coaBatch?: string;
+  coaMass?: string;
+  coaDate?: string;
 }
 
 export const products: Product[] = [
@@ -32,7 +35,10 @@ export const products: Product[] = [
     ],
     hasKit: true,
     kitPrice: 280.00,
-    coaImage: '/coa-placeholder.jpg'
+    coaImage: '/coa-placeholder.jpg',
+    coaBatch: 'HXV-TESA-2026-01',
+    coaMass: '5162.34 g/mol',
+    coaDate: 'JAN 15, 2026'
   },
   {
     id: 'vip',
@@ -46,7 +52,10 @@ export const products: Product[] = [
     ],
     hasKit: true,
     kitPrice: 350.00,
-    coaImage: '/coa-placeholder.jpg'
+    coaImage: '/coa-placeholder.jpg',
+    coaBatch: 'HXV-VIP-2026-01',
+    coaMass: '5162.34 g/mol',
+    coaDate: 'JAN 15, 2026'
   },
   {
     id: 'mots-c',
@@ -60,7 +69,10 @@ export const products: Product[] = [
       { id: '10mg', label: '10mg', price: 80.00 }
     ],
     hasKit: false,
-    coaImage: '/coa-placeholder.jpg'
+    coaImage: '/coa-placeholder.jpg',
+    coaBatch: 'HXV-MOTSC-2026-01',
+    coaMass: '5162.34 g/mol',
+    coaDate: 'JAN 15, 2026'
   },
   {
     id: 'mt-2',
@@ -73,7 +85,10 @@ export const products: Product[] = [
     ],
     hasKit: true,
     kitPrice: 150.00,
-    coaImage: '/coa-placeholder.jpg'
+    coaImage: '/coa-placeholder.jpg',
+    coaBatch: 'HXV-MT2-2026-01',
+    coaMass: '5162.34 g/mol',
+    coaDate: 'JAN 15, 2026'
   },
   {
     id: 'tirz',
@@ -86,7 +101,10 @@ export const products: Product[] = [
     ],
     hasKit: true,
     kitPrice: 450.00,
-    coaImage: '/t30barn.png'
+    coaImage: '/t30barn.png',
+    coaBatch: 'K748---003',
+    coaMass: '37.31 mg 34.92 mg and 34.60 mg',
+    coaDate: '26 NOV 2025'
   },
   {
     id: 'reta',
@@ -99,6 +117,9 @@ export const products: Product[] = [
     ],
     hasKit: true,
     kitPrice: 550.00,
-    coaImage: '/coa-placeholder.jpg'
+    coaImage: '/coa-placeholder.jpg',
+    coaBatch: 'HXV-RETA-2026-01',
+    coaMass: '5162.34 g/mol',
+    coaDate: 'JAN 15, 2026'
   }
 ];

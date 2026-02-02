@@ -15,11 +15,11 @@ export default function COAPage() {
     return products.map(product => ({
       id: product.id,
       name: product.name,
-      batch: `HXV-${product.id.toUpperCase()}-2026-01`,
+      batch: product.coaBatch || `HXV-${product.id.toUpperCase()}-2026-01`,
       purity: '99.421%', // Default purity if not specified
       quantity: product.strengths[0]?.label || '5mg',
-      weight: '5162.34 g/mol', // Default weight
-      date: 'JAN 15, 2026',
+      weight: product.coaMass || '5162.34 g/mol',
+      date: product.coaDate || 'JAN 15, 2026',
       ref: `#HXV-2026-${Math.floor(Math.random() * 9000 + 1000)}`,
       image: product.coaImage || '/coa-placeholder.jpg'
     }));
@@ -362,14 +362,20 @@ export default function COAPage() {
                   transition={{ type: "spring", stiffness: 150, damping: 30 }}
                   className="relative group"
                 >
-                  <div className="bg-white border border-zinc-200 w-[350px] md:w-[450px] aspect-[3/4] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] overflow-hidden relative">
-                    <img 
-                      src={selectedCOA?.image} 
-                      className="w-full h-full object-cover"
-                      alt="Full Analysis"
-                    />
-                    {/* Paper Overlay */}
-                    <div className="absolute inset-0 pointer-events-none border-[20px] border-white shadow-inner" />
+                  <div className="bg-zinc-100 border border-zinc-200 w-[350px] md:w-[500px] aspect-[3/4] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] overflow-hidden relative">
+                    {selectedCOA?.image ? (
+                      <img 
+                        src={selectedCOA.image} 
+                        className="w-full h-full object-contain bg-white"
+                        alt={`${selectedCOA.name} COA Analysis`}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-zinc-50">
+                        <Loader2 className="animate-spin text-zinc-300" size={40} />
+                      </div>
+                    )}
+                    {/* Subtle Paper Overlay */}
+                    <div className="absolute inset-0 pointer-events-none border-[1px] border-black/5 shadow-inner" />
                   </div>
                   {/* 3D Depth Edges */}
                   <div className="absolute inset-0 bg-zinc-100 translate-z-[-2px] border border-zinc-200" />
@@ -380,12 +386,22 @@ export default function COAPage() {
               {/* Data Side */}
               <div className="w-full lg:w-1/2 max-w-xl space-y-12">
                 <div className="space-y-6">
-                  <button 
-                    onClick={() => setView('table')}
-                    className="flex items-center gap-2 text-[10px] font-black tracking-[0.3em] text-zinc-400 hover:text-primary transition-colors"
-                  >
-                    <ArrowLeft size={14} /> BACK_TO_TABLE
-                  </button>
+                  <div className="flex items-center justify-between">
+                    <button 
+                      onClick={() => setView('table')}
+                      className="flex items-center gap-2 text-[10px] font-black tracking-[0.3em] text-zinc-400 hover:text-primary transition-colors"
+                    >
+                      <ArrowLeft size={14} /> BACK_TO_TABLE
+                    </button>
+                    <a 
+                      href={selectedCOA?.image} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-[10px] font-black tracking-[0.3em] text-primary hover:underline transition-colors"
+                    >
+                      <Search size={14} /> VIEW_FULL_SIZE
+                    </a>
+                  </div>
                   <div className="space-y-2">
                     <h2 className="text-5xl font-black tracking-tighter uppercase">{selectedCOA?.name}</h2>
                     <div className="flex items-center gap-4">
@@ -404,32 +420,43 @@ export default function COAPage() {
                     <p className="text-3xl font-black text-green-600 tracking-tighter">{selectedCOA?.purity}</p>
                   </div>
                   <div className="p-8 bg-zinc-50 rounded-3xl space-y-2">
-                    <span className="text-[10px] font-black text-zinc-400 tracking-widest uppercase">Target Quantity</span>
-                    <p className="text-3xl font-black tracking-tighter">{selectedCOA?.quantity}</p>
+                    <span className="text-[10px] font-black text-zinc-400 tracking-widest uppercase">Mass Spec</span>
+                    <p className="text-3xl font-black text-zinc-900 tracking-tighter">PASS</p>
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="flex justify-between py-4 border-b border-zinc-100">
-                    <span className="text-xs font-black text-zinc-400 uppercase tracking-widest">Batch Identifier</span>
-                    <span className="text-xs font-mono font-bold">{selectedCOA?.batch}</span>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-4 border-b border-zinc-100">
+                    <span className="text-[10px] font-black text-zinc-400 tracking-widest uppercase">Batch ID</span>
+                    <span className="font-mono font-bold">{selectedCOA?.batch}</span>
                   </div>
-                  <div className="flex justify-between py-4 border-b border-zinc-100">
-                    <span className="text-xs font-black text-zinc-400 uppercase tracking-widest">Molecular Mass</span>
-                    <span className="text-xs font-mono font-bold">{selectedCOA?.weight}</span>
+                  <div className="flex justify-between items-center py-4 border-b border-zinc-100">
+                    <span className="text-[10px] font-black text-zinc-400 tracking-widest uppercase">Molecular Weight</span>
+                    <span className="font-mono font-bold">{selectedCOA?.weight}</span>
                   </div>
-                  <div className="flex justify-between py-4 border-b border-zinc-100">
-                    <span className="text-xs font-black text-zinc-400 uppercase tracking-widest">Verification Date</span>
-                    <span className="text-xs font-mono font-bold">{selectedCOA?.date}</span>
+                  <div className="flex justify-between items-center py-4 border-b border-zinc-100">
+                    <span className="text-[10px] font-black text-zinc-400 tracking-widest uppercase">Verification Date</span>
+                    <span className="font-mono font-bold">{selectedCOA?.date}</span>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <button className="flex-1 py-5 bg-zinc-900 text-white text-[10px] font-black tracking-[0.3em] rounded-2xl hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
-                    <Download size={16} /> DOWNLOAD_FULL_REPORT
-                  </button>
-                  <button className="p-5 border-2 border-zinc-100 rounded-2xl hover:bg-zinc-50 transition-colors">
-                    <Search size={20} className="text-zinc-400" />
+                <div className="flex gap-4 pt-8">
+                  <a 
+                    href={selectedCOA?.image}
+                    download={`${selectedCOA?.name}_COA.png`}
+                    className="flex-1 bg-zinc-900 text-white py-6 rounded-2xl flex items-center justify-center gap-4 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
+                  >
+                    <Download size={20} />
+                    <span className="text-xs font-black tracking-[0.2em]">DOWNLOAD_ANALYSIS</span>
+                  </a>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert('Link copied to clipboard');
+                    }}
+                    className="w-20 bg-zinc-50 border border-zinc-100 rounded-2xl flex items-center justify-center hover:bg-zinc-100 transition-colors"
+                  >
+                    <Clipboard size={20} className="text-zinc-400" />
                   </button>
                 </div>
               </div>
