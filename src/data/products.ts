@@ -8,6 +8,9 @@ export interface Product {
   category: string;
   isNew?: boolean;
   isBestSeller?: boolean;
+  strengths: string[];
+  hasKit: boolean;
+  kitPrice?: number;
 }
 
 export const products: Product[] = [
@@ -19,7 +22,10 @@ export const products: Product[] = [
     image: '/vial.png',
     description: 'High purity TESA for research purposes.',
     category: 'Peptides',
-    isBestSeller: true
+    isBestSeller: true,
+    strengths: ['5mg', '10mg'],
+    hasKit: true,
+    kitPrice: 280.00
   },
   {
     id: 'vip',
@@ -28,7 +34,10 @@ export const products: Product[] = [
     priceRange: '$50.00 - $350.00',
     image: '/vial.png',
     description: 'Premium VIP research compound.',
-    category: 'Peptides'
+    category: 'Peptides',
+    strengths: ['2mg', '5mg'],
+    hasKit: true,
+    kitPrice: 350.00
   },
   {
     id: 'mots-c',
@@ -38,7 +47,9 @@ export const products: Product[] = [
     image: '/vial.png',
     description: 'High-grade MOTS-C research peptide.',
     category: 'Peptides',
-    isNew: true
+    isNew: true,
+    strengths: ['5mg', '10mg'],
+    hasKit: false
   },
   {
     id: 'mt-2',
@@ -47,6 +58,9 @@ export const products: Product[] = [
     priceRange: '$40.00 - $150.00',
     image: '/vial.png',
     description: 'MT-2 peptide for scientific research.',
-    category: 'Peptides'
+    category: 'Peptides',
+    strengths: ['10mg'],
+    hasKit: true,
+    kitPrice: 150.00
   }
 ];
