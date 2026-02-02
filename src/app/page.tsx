@@ -213,7 +213,14 @@ export default function Home() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-24 bg-primary text-primary-foreground overflow-hidden relative">
+      <section 
+        className="py-32 md:py-48 bg-primary text-primary-foreground relative overflow-visible"
+        style={{ 
+           clipPath: 'polygon(0 0, 100% 15%, 100% 100%, 0 85%)',
+           marginTop: '-8rem',
+           marginBottom: '-8rem'
+         }}
+      >
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none overflow-hidden">
           <div className="absolute -right-20 -top-20 w-[600px] h-[600px] rotate-12">
             <LabIcons.Structure />
@@ -222,18 +229,18 @@ export default function Home() {
             <LabIcons.DNA />
           </div>
         </div>
-        <div className="container relative z-10">
+        <div className="container relative z-10 py-12 text-center flex flex-col items-center">
           <div className="max-w-3xl space-y-8">
-            <h2 className="text-4xl font-bold">OUR MISSION</h2>
-            <p className="text-xl leading-relaxed text-primary-foreground/90">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">OUR MISSION</h2>
+            <p className="text-xl md:text-2xl leading-relaxed text-primary-foreground/90 font-medium">
               At Helivex Labs, our purpose is to deliver research peptides at fair, transparent prices. We are built on a foundation of trust, integrity, and uncompromising standards, ensuring the research community can rely on us every step of the way.
             </p>
             <p className="text-lg text-primary-foreground/80">
               When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
             </p>
-            <div className="pt-4">
-              <Link href="/about" className="inline-flex items-center gap-2 font-bold hover:gap-3 transition-all">
-                LEARN MORE ABOUT OUR STANDARDS <ArrowRight className="h-5 w-5" />
+            <div className="pt-8">
+              <Link href="/about" className="bg-secondary text-secondary-foreground px-10 py-4 rounded-full font-black tracking-widest hover:bg-white hover:text-primary transition-all duration-300 shadow-xl">
+                LEARN MORE ABOUT OUR STANDARDS
               </Link>
             </div>
           </div>
