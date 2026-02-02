@@ -30,11 +30,11 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center overflow-hidden bg-white">
         {/* Animated Lab Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          {/* Background Image: Vial.png */}
+          {/* Background Image: freezervials.jpg */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/vial.png"
-              alt="Lab Vials Background"
+              src="/freezervials.jpg"
+              alt="Lab Freezer Vials"
               fill
               className="object-cover opacity-10"
               priority
