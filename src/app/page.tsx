@@ -198,17 +198,6 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
-        {/* Background Swirl Photo */}
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.8]"
-        >
-          <Image
-            src="/swirl.jpg"
-            alt=""
-            fill
-            className="object-cover object-center"
-          />
-        </div>
         <div className="container relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
             <h2 className="text-3xl font-bold tracking-tight text-center mb-12 uppercase">FREQUENTLY ASKED QUESTIONS</h2>
