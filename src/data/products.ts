@@ -161,7 +161,7 @@ export const products: Product[] = [
   {
     "id": "prod_1770021729445",
     "name": "KLOW",
-    "image": "/vial.png",
+    "image": "/KLOW.png",
     "description": "KLOW Blend is a regenerative peptide complex combining GHK-Cu, BPC-157, TB-500, and KPV to support tissue repair, reduce inflammation, and enhance recovery.",
     "category": "Peptides",
     "strengths": [
