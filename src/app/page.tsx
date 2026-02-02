@@ -214,13 +214,14 @@ export default function Home() {
 
       {/* Mission Section */}
       <section 
-          className="py-10 md:py-12 bg-primary text-primary-foreground relative overflow-visible"
-          style={{ 
-              clipPath: 'polygon(0 5%, 100% 0, 100% 95%, 0 100%)',
-              marginTop: '-2.5rem',
-              marginBottom: '-2.5rem'
-            }}
-        >
+           className="py-10 md:py-12 text-primary-foreground relative overflow-visible"
+           style={{ 
+               clipPath: 'polygon(0 5%, 100% 0, 100% 95%, 0 100%)',
+               marginTop: '-2.5rem',
+               marginBottom: '-2.5rem',
+               background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)'
+             }}
+         >
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none overflow-hidden">
             <div className="absolute -right-20 -top-20 w-[600px] h-[600px] rotate-12">
               <LabIcons.Structure />
