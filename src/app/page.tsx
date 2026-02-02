@@ -198,20 +198,19 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section className="py-24 bg-white overflow-hidden relative reflective-glow">
-        {/* Background GIF */}
+        {/* Background Swirl Photo */}
         <div 
-          className="absolute inset-0 md:left-1/2 md:w-1/2 z-0 pointer-events-none opacity-[0.06] blur-[2px] md:blur-0"
+          className="absolute inset-0 md:left-1/2 md:w-1/2 z-0 pointer-events-none opacity-[0.1] blur-[1px] md:blur-0"
           style={{
             maskImage: 'radial-gradient(circle at center, black, transparent 80%)',
             WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)',
           }}
         >
           <Image
-            src="/Untitled design (1).gif"
+            src="/swirl.jpg"
             alt=""
             fill
             className="object-cover object-center md:object-right"
-            unoptimized
           />
         </div>
         <div className="container relative z-10">
