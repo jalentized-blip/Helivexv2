@@ -99,7 +99,7 @@ export default function AboutPage() {
                 <div className="relative h-full w-full flex items-center justify-center">
                    <Image 
                     src="/vial.png" 
-                    alt="Helivex Research Vial" 
+                    alt="Helivex Labs 99% Pure Research Peptide Vial" 
                     width={400} 
                     height={400} 
                     className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)]"

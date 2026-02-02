@@ -185,7 +185,7 @@ export default function MedicalCore() {
                   <Link href={isEditMode ? "#" : "/coa"} className={isEditMode ? 'cursor-move' : 'cursor-pointer'}>
                     <Image 
                       src="/vial.png"
-                      alt="Research Vial"
+                      alt="Molecular Diagnostic Analysis of 99% Pure Peptides"
                       fill
                       className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)] pointer-events-none"
                     />
@@ -362,7 +362,7 @@ export default function MedicalCore() {
                     <div className="relative w-12 h-12 opacity-80">
                       <Image 
                         src="/vial.png"
-                        alt="Verified Vial"
+                        alt="Verified Peptide Batch Purity Certificate"
                         fill
                         className="object-contain"
                       />

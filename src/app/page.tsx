@@ -41,7 +41,7 @@ export default function Home() {
           <div className="absolute inset-0 z-0">
             <Image
               src="/freezervials.jpg"
-              alt="Lab Freezer Vials"
+              alt="Advanced Peptide Research Laboratory - Helivex Labs Storage"
               fill
               className="object-cover opacity-20"
               priority
@@ -80,10 +80,10 @@ export default function Home() {
             />
             <div className="flex flex-wrap gap-4 pt-4">
               <Link href="/shop" className="btn-primary flex items-center gap-2 group px-8 py-4 text-sm font-black tracking-widest">
-                SHOP PRODUCTS <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                SHOP RESEARCH PEPTIDES <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/about" className="px-8 py-4 border border-black/5 rounded-md text-sm font-black tracking-widest hover:bg-black/5 transition-colors">
-                OUR MISSION
+                ABOUT OUR STANDARDS
               </Link>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function Home() {
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary relative overflow-hidden p-2.5">
                 <Image 
                   src="/vial.png"
-                  alt="Research Use"
+                  alt="99% Pure Research Peptides"
                   fill
                   className="object-contain"
                 />
@@ -149,7 +149,7 @@ export default function Home() {
               <p className="text-muted-foreground">Precision-engineered research materials for clinical study.</p>
             </div>
             <Link href="/shop" className="btn-primary flex items-center gap-2 group text-sm py-2.5">
-              VIEW FULL INVENTORY <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              SHOP ALL RESEARCH PEPTIDES <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
           
@@ -210,11 +210,15 @@ export default function Home() {
                 },
                 {
                   q: "Do you provide Certificates of Analysis (COAs)?",
-                  a: "Yes. Certificates of Analysis are available for most products. We ensure 99% purity through rigorous third-party testing."
+                  a: "Yes. Certificates of Analysis are available for most products. We ensure 99% purity through rigorous third-party testing to provide the highest quality research peptides online."
                 },
                 {
                   q: "What is your shipping time?",
-                  a: "Orders are processed quickly and shipped from the USA. You can expect delivery within 3-5 business days from the day you receive your tracking info."
+                  a: "Orders are processed quickly and shipped from the USA. You can expect delivery within 3-5 business days from the day you receive your tracking info. We provide fast, reliable peptide research supplies to your laboratory."
+                },
+                {
+                  q: "How can I buy peptides online safely?",
+                  a: "When you buy research peptides online from Helivex Labs, you are guaranteed 99% purity, secure encrypted transactions, and discrete, fast USA shipping. All our compounds undergo strict quality control."
                 }
               ].map((item, i) => (
                 <div key={i} className="p-8 rounded-2xl bg-white border border-zinc-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.04)] transition-all duration-300">
@@ -225,6 +229,39 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What are the products from Helivex Labs intended for?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "All items sold by Helivex Labs are strictly for laboratory research use only. They are not for human or animal consumption."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you provide Certificates of Analysis (COAs)?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Certificates of Analysis are available for most products. We ensure 99% purity through rigorous third-party testing."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How can I buy peptides online safely?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "When you buy research peptides online from Helivex Labs, you are guaranteed 99% purity, secure encrypted transactions, and discrete, fast USA shipping."
+                }
+              }
+            ]
+          }) }}
+        />
       </section>
 
       {/* Molecular Analysis Core */}

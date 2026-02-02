@@ -20,7 +20,7 @@ export default function Header() {
             <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
               <Image 
                 src="/logo.png" 
-                alt="Helivex Labs Logo" 
+                alt="Helivex Labs - Premier Supplier of 99% Pure Research Peptides" 
                 fill 
                 className="object-contain drop-shadow-[0_0_8px_rgba(139,26,26,0.3)] group-hover:scale-110 transition-transform duration-300"
                 priority

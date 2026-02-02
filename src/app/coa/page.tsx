@@ -100,11 +100,34 @@ export default function COAPage() {
     }, 2500);
   };
 
+  const productSchema = coas.map(coa => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": coa.name,
+    "description": `High-purity research peptide ${coa.name}. Batch ${coa.batch} verified at ${coa.purity} purity. Shipped from USA.`,
+    "image": coa.image,
+    "brand": {
+      "@type": "Brand",
+      "name": "Helivex Labs"
+    },
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "priceCurrency": "USD",
+      "price": "0.00", // Price is usually dynamic, setting placeholder
+      "url": `https://helivexlabs.com/coa`
+    }
+  }));
+
   return (
     <div 
       className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10 overflow-x-hidden"
       onMouseMove={handleMouseMove}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* Background Glows */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full" />

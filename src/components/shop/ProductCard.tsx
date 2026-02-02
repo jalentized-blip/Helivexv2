@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="relative w-full h-full group-hover:scale-110 transition-all duration-700">
           <Image 
             src={product.image} 
-            alt={product.name}
+            alt={`Buy ${product.name} Online - 99% Pure Research Peptide`}
             fill
             className="object-contain drop-shadow-2xl"
             priority
@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           className="w-full bg-primary text-white text-[10px] font-black tracking-[0.2em] py-3.5 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn relative overflow-hidden transition-all hover:bg-accent active:scale-[0.98]"
         >
           <FlaskConical className="h-3.5 w-3.5 relative z-10" />
-          <span className="relative z-10 uppercase">ADD TO RESEARCH</span>
+          <span className="relative z-10 uppercase">BUY RESEARCH PEPTIDE</span>
           <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
         </Link>
       </div>

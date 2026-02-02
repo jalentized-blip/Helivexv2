@@ -97,6 +97,23 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqs.flatMap(category => 
+            category.questions.map(faq => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          )
+        }) }}
+      />
       <main className="py-24">
         <div className="container">
           {/* Header */}
