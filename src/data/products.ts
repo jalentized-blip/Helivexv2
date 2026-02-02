@@ -11,6 +11,7 @@ export interface Product {
   strengths: string[];
   hasKit: boolean;
   kitPrice?: number;
+  coaImage?: string;
 }
 
 export const products: Product[] = [
@@ -25,7 +26,8 @@ export const products: Product[] = [
     isBestSeller: true,
     strengths: ['5mg', '10mg'],
     hasKit: true,
-    kitPrice: 280.00
+    kitPrice: 280.00,
+    coaImage: '/coa-placeholder.jpg'
   },
   {
     id: 'vip',
@@ -37,7 +39,8 @@ export const products: Product[] = [
     category: 'Peptides',
     strengths: ['2mg', '5mg'],
     hasKit: true,
-    kitPrice: 350.00
+    kitPrice: 350.00,
+    coaImage: '/coa-placeholder.jpg'
   },
   {
     id: 'mots-c',
@@ -49,7 +52,8 @@ export const products: Product[] = [
     category: 'Peptides',
     isNew: true,
     strengths: ['5mg', '10mg'],
-    hasKit: false
+    hasKit: false,
+    coaImage: '/coa-placeholder.jpg'
   },
   {
     id: 'mt-2',
@@ -61,6 +65,7 @@ export const products: Product[] = [
     category: 'Peptides',
     strengths: ['10mg'],
     hasKit: true,
-    kitPrice: 150.00
+    kitPrice: 150.00,
+    coaImage: '/coa-placeholder.jpg'
   }
 ];

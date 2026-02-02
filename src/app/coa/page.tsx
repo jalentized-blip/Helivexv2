@@ -105,6 +105,12 @@ export default function COAPage() {
       className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
+      {/* Background Glows */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-secondary/5 blur-[150px] rounded-full" />
+      </div>
+
       <AnimatePresence mode="wait">
         {view === 'table' ? (
           <motion.div 

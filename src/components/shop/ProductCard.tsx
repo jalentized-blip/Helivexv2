@@ -11,7 +11,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const [selectedStrength, setSelectedStrength] = useState(product.strengths[0]);
   const [isKit, setIsKit] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -45,78 +44,64 @@ export default function ProductCard({ product }: ProductCardProps) {
           <Link href={`/product/${product.id}`} className="block">
             <h3 className="font-bold text-lg group-hover:text-primary transition-colors">{product.name}</h3>
           </Link>
-          <p className="text-xs text-muted-foreground line-clamp-1 uppercase tracking-wider">{product.category}</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em] font-medium">{product.category}</p>
         </div>
 
         {/* Selection UI */}
-        <div className="space-y-3">
-          {/* Strength Selection */}
-          <div className="flex flex-wrap gap-2">
-            {product.strengths.map((strength) => (
-              <button
-                key={strength}
-                onClick={() => setSelectedStrength(strength)}
-                className={`text-[10px] font-bold px-3 py-1.5 rounded-md border transition-all ${
-                  selectedStrength === strength
-                    ? 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/20'
-                    : 'bg-white text-muted-foreground border-border hover:border-primary/50'
-                }`}
-              >
-                {strength}
-              </button>
-            ))}
-          </div>
-
+        <div className="space-y-4">
           {/* Single vs Kit Toggle */}
           {product.hasKit && (
-            <div className="flex p-1 bg-zinc-100 rounded-lg border border-border/50">
-              <button
-                onClick={() => setIsKit(false)}
-                className={`flex-1 text-[10px] font-bold py-2 rounded-md transition-all ${
-                  !isKit ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                SINGLE VIAL
-              </button>
-              <button
-                onClick={() => setIsKit(true)}
-                className={`flex-1 text-[10px] font-bold py-2 rounded-md transition-all ${
-                  isKit ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                RESEARCH KIT
-              </button>
+            <div className="space-y-2">
+              <p className="text-[9px] font-black tracking-widest text-zinc-400 uppercase">Unit Type</p>
+              <div className="flex p-1 bg-zinc-50 rounded-lg border border-zinc-100">
+                <button
+                  onClick={() => setIsKit(false)}
+                  className={`flex-1 text-[9px] font-black py-2 rounded-md transition-all duration-300 ${
+                    !isKit ? 'bg-white text-primary shadow-sm border border-zinc-100' : 'text-zinc-400 hover:text-zinc-600'
+                  }`}
+                >
+                  SINGLE
+                </button>
+                <button
+                  onClick={() => setIsKit(true)}
+                  className={`flex-1 text-[9px] font-black py-2 rounded-md transition-all duration-300 ${
+                    isKit ? 'bg-white text-primary shadow-sm border border-zinc-100' : 'text-zinc-400 hover:text-zinc-600'
+                  }`}
+                >
+                  KIT (10X)
+                </button>
+              </div>
             </div>
           )}
 
           {/* Quantity & Price */}
-          <div className="flex items-center justify-between pt-2 border-t border-border">
-            <div className="flex items-center border border-border rounded-lg bg-zinc-50 overflow-hidden">
+          <div className="flex items-center justify-between pt-3 border-t border-zinc-100">
+            <div className="flex items-center bg-zinc-50 rounded-lg border border-zinc-100 overflow-hidden">
               <button 
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-1.5 hover:bg-muted transition-colors border-r border-border"
+                className="p-1.5 hover:bg-zinc-100 transition-colors text-zinc-400"
               >
                 <Minus className="h-3 w-3" />
               </button>
-              <span className="w-8 text-center text-xs font-bold">{quantity}</span>
+              <span className="w-8 text-center text-[11px] font-black">{quantity}</span>
               <button 
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-1.5 hover:bg-muted transition-colors border-l border-border"
+                className="p-1.5 hover:bg-zinc-100 transition-colors text-zinc-400"
               >
                 <Plus className="h-3 w-3" />
               </button>
             </div>
             <div className="text-right">
-              <span className="text-primary font-bold text-lg">
+              <span className="text-primary font-black text-lg tracking-tight">
                 ${(isKit ? (product.kitPrice || 0) : product.price) * quantity}.00
               </span>
             </div>
           </div>
         </div>
 
-        <button className="w-full btn-primary text-xs py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 group/btn relative overflow-hidden">
+        <button className="w-full bg-primary text-white text-[10px] font-black tracking-[0.2em] py-3.5 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn relative overflow-hidden transition-all hover:bg-accent active:scale-[0.98]">
           <ShoppingCart className="h-3.5 w-3.5 relative z-10" />
-          <span className="relative z-10 font-bold tracking-wider">ADD TO CART</span>
+          <span className="relative z-10">ADD TO RESEARCH</span>
           <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
         </button>
       </div>

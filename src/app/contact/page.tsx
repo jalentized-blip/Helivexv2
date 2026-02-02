@@ -35,8 +35,14 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
-      <main className="py-24">
+    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[10%] -left-[10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-secondary/5 blur-[150px] rounded-full" />
+      </div>
+
+      <main className="py-24 relative z-10">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
             
@@ -90,7 +96,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white rounded-[2.5rem] border border-zinc-100 p-8 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.04)]">
+              <div className="bg-white rounded-[2.5rem] border border-zinc-100 p-8 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.04)] reflective-glow">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">

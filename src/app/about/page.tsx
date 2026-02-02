@@ -32,7 +32,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-primary/10">
       <main>
         {/* Hero Section */}
-        <section className="relative py-24 overflow-hidden bg-zinc-50/50 border-b border-zinc-100">
+        <section className="relative py-24 overflow-hidden bg-zinc-50/50 border-b border-zinc-100 reflective-glow">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[50%] bg-primary/3 rounded-full blur-3xl" />
@@ -86,7 +86,7 @@ export default function AboutPage() {
         </section>
 
         {/* Detailed Info Section */}
-        <section className="py-24 bg-zinc-50">
+        <section className="py-24 bg-zinc-50 reflective-glow">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <motion.div
