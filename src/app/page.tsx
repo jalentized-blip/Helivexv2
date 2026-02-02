@@ -189,8 +189,8 @@ export default function Home() {
                 When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
               </p>
               <div className="pt-2">
-                <Link href="/about" className="bg-secondary text-secondary-foreground px-10 py-4 rounded-full font-black tracking-widest hover:bg-white hover:text-primary transition-all duration-300 shadow-xl">
-                  LEARN MORE ABOUT OUR STANDARDS
+                <Link href="/about" className="bg-secondary text-secondary-foreground px-6 py-2.5 rounded-full font-bold tracking-widest text-[10px] hover:bg-white hover:text-primary transition-all duration-300 shadow-xl inline-block">
+                  ABOUT OUR STANDARDS
                 </Link>
               </div>
           </div>

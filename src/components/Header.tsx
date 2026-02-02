@@ -17,9 +17,9 @@ export default function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="relative w-12 h-12 flex-shrink-0">
               <Image 
-                src="/vial.png" 
+                src="/logo.png" 
                 alt="Helivex Labs Logo" 
                 fill 
                 className="object-contain drop-shadow-[0_0_8px_rgba(139,26,26,0.3)] group-hover:scale-110 transition-transform duration-300"

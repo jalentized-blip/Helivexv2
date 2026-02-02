@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ShieldCheck, Beaker, Globe, Save, RotateCcw, Maximize, Minimize } from 'lucide-react';
@@ -118,9 +119,9 @@ export default function MissionSection() {
           <motion.h2 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-4xl font-black tracking-tight text-primary"
+            className="text-4xl font-black tracking-tight text-primary uppercase"
           >
-            Our Mission
+            Purity & Sourcing
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -128,7 +129,7 @@ export default function MissionSection() {
             transition={{ delay: 0.2 }}
             className="text-zinc-600 leading-relaxed text-lg"
           >
-            At Helivex Labs, our purpose is to deliver research peptides at fair, transparent prices. We are built on a foundation of trust, integrity, and uncompromising standards, ensuring the research community can rely on us every step of the way.
+            At Helivex Labs, we prioritize absolute peptide purity and meticulous sourcing. Every compound in our inventory undergoes a rigorous selection process and comprehensive third-party laboratory analysis to ensure it meets the highest scientific standards for your research.
           </motion.p>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -136,8 +137,18 @@ export default function MissionSection() {
             transition={{ delay: 0.3 }}
             className="text-primary font-black text-lg italic"
           >
-            When it comes to purity and service, we would sooner step away than sacrifice the standards that define us.
+            Our commitment to purity is driven by a collective vetting standard, ensuring every research compound meets the uncompromising quality that defines us.
           </motion.p>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="pt-4"
+          >
+            <Link href="/about" className="bg-primary text-white px-6 py-2.5 rounded-full font-bold tracking-widest text-[10px] hover:bg-zinc-900 transition-all duration-300 shadow-lg inline-block">
+              ABOUT OUR STANDARDS
+            </Link>
+          </motion.div>
         </div>
 
         {/* Interactive Vial Display */}
