@@ -70,7 +70,10 @@
   h3 span.text-primary,
   .btn-primary,
   .bg-primary,
-  .hover\:text-primary:hover {
+  .hover\:text-primary:hover,
+  .hover\:bg-primary:hover,
+  .group:hover .group-hover\:text-primary,
+  .group:hover .group-hover\:bg-primary {
     text-shadow: 
       0 0 10px rgba(244, 167, 167, 0.4),
       0 0 20px rgba(244, 167, 167, 0.2);
@@ -82,20 +85,28 @@
   .text-primary svg,
   [class*="text-primary"] svg,
   .bg-primary svg,
-  .btn-primary svg {
+  .btn-primary svg,
+  .hover\:text-primary:hover svg,
+  .group:hover .group-hover\:text-primary svg {
     filter: drop-shadow(0 0 8px rgba(244, 167, 167, 0.4));
   }
 
   /* Subtle reflection effect for larger red text and headers */
   h1 span.text-primary, 
   h2 span.text-primary,
+  h3 span.text-primary,
+  .text-2xl.text-primary,
+  .text-3xl.text-primary,
   .text-4xl.text-primary,
   .text-5xl.text-primary,
   .text-6xl.text-primary, 
   .text-7xl.text-primary, 
   .text-8xl.text-primary,
   h1:has(span.text-primary),
-  h2:has(span.text-primary) {
+  h2:has(span.text-primary),
+  h3:has(span.text-primary),
+  a.text-primary,
+  button.text-primary {
     -webkit-box-reflect: below -15% linear-gradient(transparent, rgba(244, 167, 167, 0.1));
   }
 }
