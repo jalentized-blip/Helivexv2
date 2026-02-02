@@ -141,7 +141,7 @@ export const products: Product[] = [
   {
     "id": "reta",
     "name": "RETATRUTIDE",
-    "image": "/vial.png",
+    "image": "/retatrutide.png",
     "description": "Next-generation research compound for metabolic studies.",
     "category": "Peptides",
     "strengths": [
