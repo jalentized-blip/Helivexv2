@@ -23,11 +23,11 @@ get_header(); ?>
                 </p>
             </div>
             <div class="aspect-square bg-zinc-50 border border-zinc-100 rounded-3xl overflow-hidden relative group">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/swirl.jpg" alt="Lab Standards" class="w-full h-full object-cover grayscale opacity-20 group-hover:opacity-40 transition-opacity">
-                <div class="absolute inset-0 flex items-center justify-center p-8">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/swirl.jpg" alt="Lab Standards" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 flex items-center justify-center p-8 bg-black/10">
                     <div class="text-center space-y-4">
-                        <div class="text-4xl font-black italic text-zinc-900 tracking-tighter uppercase">99.8%</div>
-                        <p class="text-[10px] font-black uppercase tracking-widest text-zinc-400">Average Purity Rating</p>
+                        <div class="text-4xl font-black italic text-white drop-shadow-lg tracking-tighter uppercase">99%+</div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-white/80 drop-shadow-md">Average Purity Rating</p>
                     </div>
                 </div>
             </div>
