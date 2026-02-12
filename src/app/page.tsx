@@ -9,19 +9,14 @@ import { useAdmin } from '@/context/AdminContext';
 import { LabIcons, MoleculePattern } from '@/components/LabArt';
 import MedicalCore from '@/components/MedicalCore';
 import MissionSection from '@/components/MissionSection';
-import { updateHeroText } from '@/app/actions/updateHeroText';
 import ProductCard from '@/components/shop/ProductCard';
 
 export default function Home() {
   const { isEditMode, products } = useAdmin();
 
   const handleSaveHeroText = async (newText: string) => {
-    const result = await updateHeroText(newText);
-    if (result.success) {
-      if (result.message) alert(result.message);
-    } else {
-      alert('Failed to save text: ' + result.error);
-    }
+    // Admin updates are disabled in static mode
+    console.log('Update text (disabled):', newText);
   };
 
   return (
@@ -78,7 +73,7 @@ export default function Home() {
               onSave={handleSaveHeroText}
             />
             <div className="flex flex-wrap gap-4 pt-4">
-              <Link href="/shop" className="btn-primary flex items-center gap-2 group px-8 py-4 text-sm font-black tracking-widest">
+              <Link href="/products" className="btn-primary flex items-center gap-2 group px-8 py-4 text-sm font-black tracking-widest">
                 SHOP RESEARCH PEPTIDES <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/about" className="px-8 py-4 border border-black/5 rounded-md text-sm font-black tracking-widest hover:bg-black/5 transition-colors">
@@ -120,7 +115,7 @@ export default function Home() {
             <div className="flex items-center gap-4 p-6 bg-white rounded-lg shadow-sm">
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary relative overflow-hidden p-2.5">
                 <Image 
-                  src="/vial.png"
+                  src="/helivexproductlogo.png"
                   alt="99% Pure Research Peptides"
                   fill
                   className="object-contain"
@@ -147,7 +142,7 @@ export default function Home() {
               <h2 className="text-4xl font-bold tracking-tight">FEATURED COMPOUNDS</h2>
               <p className="text-muted-foreground">Precision-engineered research materials for clinical study.</p>
             </div>
-            <Link href="/shop" className="btn-primary flex items-center gap-2 group text-sm py-2.5">
+            <Link href="/products" className="btn-primary flex items-center gap-2 group text-sm py-2.5">
               SHOP ALL RESEARCH PEPTIDES <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -162,11 +157,11 @@ export default function Home() {
 
       {/* Mission Section */}
       <section 
-           className="py-10 md:py-12 text-primary-foreground relative overflow-visible"
+           className="py-10 md:py-12 text-primary-foreground relative overflow-visible z-20"
            style={{ 
                clipPath: 'polygon(0 5%, 100% 0, 100% 95%, 0 100%)',
-               marginTop: '-2.5rem',
-               marginBottom: '-2.5rem',
+               marginTop: '0',
+               marginBottom: '0',
                background: 'linear-gradient(135deg, var(--primary) 0%, rgba(244, 167, 167, 0.4) 100%)'
              }}
          >
@@ -264,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* Molecular Analysis Core */}
-      <section className="mt-20">
+      <section className="mt-32 md:mt-20">
         <MedicalCore />
       </section>
     </div>

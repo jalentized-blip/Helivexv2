@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://helivex.com/sitemap.xml
+Sitemap: https://helivexlabs.com/sitemap.xml

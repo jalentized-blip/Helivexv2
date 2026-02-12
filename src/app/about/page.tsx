@@ -98,7 +98,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,rgba(158,27,27,0.1),transparent)]" />
                 <div className="relative h-full w-full flex items-center justify-center">
                    <Image 
-                    src="/vial.png" 
+                    src="/helivexproductlogo.png" 
                     alt="Helivex Labs 99% Pure Research Peptide Vial" 
                     width={400} 
                     height={400} 
@@ -159,7 +159,7 @@ export default function AboutPage() {
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tighter">Ready to accelerate your <br/><span className="italic text-primary">breakthrough?</span></h2>
                 <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
                   <Link 
-                    href="/shop"
+                    href="/products"
                     className="px-8 py-4 bg-primary text-white font-bold rounded-full tracking-widest uppercase text-xs hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
                   >
                     Browse Catalog

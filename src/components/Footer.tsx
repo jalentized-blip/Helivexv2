@@ -21,10 +21,10 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-4">SHOP</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/shop" className="hover:text-primary">All Products</Link></li>
+              <li><Link href="/products" className="hover:text-primary">All Products</Link></li>
               <li><Link href="/coa" className="hover:text-primary">COA Archive</Link></li>
-              <li><Link href="/shop?category=peptides" className="hover:text-primary">Peptides</Link></li>
-              <li><Link href="/shop?category=research" className="hover:text-primary">Research Compounds</Link></li>
+              <li><Link href="/products?category=peptides" className="hover:text-primary">Peptides</Link></li>
+              <li><Link href="/products?category=research" className="hover:text-primary">Research Compounds</Link></li>
             </ul>
           </div>
           

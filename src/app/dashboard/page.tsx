@@ -191,7 +191,7 @@ export default function DashboardPage() {
                     <h3 className="text-2xl font-black tracking-tight text-zinc-900 uppercase">Archive Empty</h3>
                     <p className="text-zinc-500 text-sm max-w-xs mx-auto">No research compound orders found in your current session history.</p>
                   </div>
-                  <Link href="/shop" className="inline-block bg-primary text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase hover:bg-red-700 transition-all">
+                  <Link href="/products" className="inline-block bg-primary text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase hover:bg-red-700 transition-all">
                     Initialize First Order
                   </Link>
                 </motion.div>

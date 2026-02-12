@@ -20,10 +20,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white backdrop-blur-md pink-metallic-glow">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-24 items-center justify-between">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center space-x-2 md:space-x-3 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
               <Image 
                 src="/logo.png" 
                 alt="Helivex Labs - Premier Supplier of 99% Pure Research Peptides" 
@@ -38,7 +38,7 @@ export default function Header() {
             </div>
           </Link>
           <nav className="hidden md:flex gap-8 text-[11px] font-bold tracking-widest uppercase">
-            <Link href="/shop" className="transition-colors hover:text-primary relative group">
+            <Link href="/products" className="transition-colors hover:text-primary relative group">
               SHOP
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all group-hover:w-full" />
             </Link>
@@ -75,7 +75,7 @@ export default function Header() {
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse mr-2" />
             <span className="text-[9px] font-mono text-primary font-bold tracking-tighter uppercase">SECURE_LINK: ACTIVE</span>
           </div>
-          <Link href="/shop" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full">
+          <Link href="/products" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full">
             <Search className="h-4 w-4" />
           </Link>
           
@@ -92,7 +92,7 @@ export default function Header() {
             </Link>
           )}
 
-          <Link href="/checkout" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full relative">
+          <Link href="/cart" className="p-2 transition-colors hover:text-primary hover:bg-muted rounded-full relative">
             <ShoppingCart className="h-4 w-4" />
             {itemCount > 0 && (
               <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-primary text-[8px] font-bold text-white flex items-center justify-center animate-in zoom-in duration-300">
@@ -116,13 +116,13 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t border-border bg-white p-4 space-y-4 animate-in slide-in-from-top duration-200">
           <nav className="flex flex-col gap-4 text-sm font-medium text-center">
-            <Link href="/shop" className="py-2 border-b border-muted">SHOP</Link>
+            <Link href="/products" className="py-2 border-b border-muted">SHOP</Link>
             <Link href="/coa" className="py-2 border-b border-muted">COA</Link>
             <Link href="/about" className="py-2 border-b border-muted">ABOUT</Link>
             <Link href="/faq" className="py-2 border-b border-muted">FAQ</Link>
             <Link href="/contact" className="py-2 border-b border-muted">CONTACT</Link>
             <Link href="/orders" className="py-2 border-b border-muted">MY ORDERS</Link>
-            <Link href="/checkout" className="py-2">CHECKOUT</Link>
+            <Link href="/cart" className="py-2">CART</Link>
           </nav>
         </div>
       )}

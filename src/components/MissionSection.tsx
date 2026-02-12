@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ShieldCheck, Beaker, Globe, Save, RotateCcw, Maximize, Minimize } from 'lucide-react';
 import { useAdmin } from '@/context/AdminContext';
-import { updateMissionPositions } from '@/app/actions/updateMissionPositions';
 
 // --- POSITION MARKERS ---
 const CARD_1_POS = /* CARD_1_START */ { x: 145, y: 158 } /* CARD_1_END */;
@@ -89,28 +88,8 @@ export default function MissionSection() {
   ];
 
   const handleSave = async () => {
-    setIsSaving(true);
-    try {
-      const result = await updateMissionPositions(positions, vialData);
-      if (result.success) {
-        if (result.message) {
-          alert(result.message);
-        } else {
-          alert('Positions and transformations saved successfully!');
-        }
-        setTimeout(() => {
-          // Use a timestamp to bust the browser cache on reload
-          window.location.href = window.location.pathname + '?t=' + Date.now();
-        }, 500);
-      } else {
-        alert('Failed to save: ' + (result.error || 'Unknown error'));
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Failed to save changes.');
-    } finally {
-      setIsSaving(false);
-    }
+    // Admin updates are disabled in static mode
+    console.log('Save positions (disabled)');
   };
 
   return (
@@ -250,7 +229,7 @@ export default function MissionSection() {
             className={`relative z-10 w-64 h-80 group ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
           >
             <Image 
-              src="/vial.png"
+              src="/helivexproductlogo.png"
               alt="Helivex Vial"
               fill
               className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)] pointer-events-none"

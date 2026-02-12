@@ -1,12 +1,15 @@
 import { products } from '@/data/products';
 
+export const dynamic = 'force-static';
+
 export default function sitemap() {
-  const baseUrl = 'https://helivex.com';
+  const baseUrl = 'https://helivexlabs.com';
 
   // Static routes
   const routes = [
     '',
-    '/shop',
+    '/products',
+    '/cart',
     '/coa',
     '/about',
     '/faq',

@@ -106,7 +106,7 @@ export default function AdminPage() {
     setEditingProduct({
       id: `prod_${Date.now()}`,
       name: '',
-      image: '/vial.png',
+      image: '/helivexproductlogo.png',
       description: '',
       category: 'Peptides',
       strengths: [{ id: '5mg', label: '5mg', price: 0 }],

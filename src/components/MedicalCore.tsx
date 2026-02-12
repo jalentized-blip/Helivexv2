@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Activity, ShieldCheck, Cpu, Zap, Beaker, Search, Database, Fingerprint, Pencil, Save, X, RotateCcw, Maximize, Minimize } from 'lucide-react';
 import { LabIcons } from '@/components/LabArt';
-import { updateVialPosition } from '@/app/actions/updateVialPosition';
 import { useAdmin } from '@/context/AdminContext';
 
 const DataRow = ({ label, value, color }: { label: string, value: string, color: string }) => (
@@ -70,32 +69,12 @@ export default function MedicalCore() {
   }, [isRotating]);
 
   const handleSave = async () => {
-    setIsSaving(true);
-    try {
-      const result = await updateVialPosition(vialData);
-      if (result.success) {
-        if (result.message) {
-          alert(result.message);
-        } else {
-          alert('Vial transformation saved successfully!');
-        }
-        setTimeout(() => {
-          // Use a timestamp to bust the browser cache on reload
-          window.location.href = window.location.pathname + '?t=' + Date.now();
-        }, 500);
-      } else {
-        alert('Failed to save: ' + (result.error || 'Unknown error'));
-      }
-    } catch (error) {
-      console.error('Failed to save:', error);
-      alert('Failed to save transformation.');
-    } finally {
-      setIsSaving(false);
-    }
+    // Admin updates are disabled in static mode
+    console.log('Save transformation (disabled)');
   };
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-[700px] bg-white overflow-hidden py-32 px-6">
+    <div ref={containerRef} className="relative w-full min-h-[700px] bg-white overflow-hidden py-32 md:py-32 px-6">
       {/* Edit Mode Save Button */}
       <AnimatePresence>
         {isEditMode && (
@@ -180,11 +159,11 @@ export default function MedicalCore() {
                     scale: vialData.scale
                   }}
                   transition={isRotating ? { duration: 0 } : { type: "spring", stiffness: 100, damping: 20 }}
-                  className={`relative w-48 h-64 z-20 group ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
+                  className={`relative w-32 h-44 md:w-48 md:h-64 z-20 group ${isEditMode ? 'cursor-move ring-2 ring-primary ring-offset-4 rounded-3xl' : ''}`}
                 >
                   <Link href={isEditMode ? "#" : "/coa"} className={isEditMode ? 'cursor-move' : 'cursor-pointer'}>
                     <Image 
-                      src="/vial.png"
+                      src="/helivexproductlogo.png"
                       alt="Molecular Diagnostic Analysis of 99% Pure Peptides"
                       fill
                       className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)] pointer-events-none"
@@ -274,10 +253,10 @@ export default function MedicalCore() {
 
             {/* Exterior HUD Data Nodes */}
             {[
-              { label: 'NODE_V.104', val: 'PURITY 99.242%', pos: '-top-4 -left-4 md:top-0 md:left-0', color: 'text-green-600', shadow: 'shadow-green-100' },
-              { label: 'NODE_V.105', val: 'STERILITY - NO GROWTH', pos: '-top-4 -right-4 md:top-0 md:right-0', color: 'text-blue-600', shadow: 'shadow-blue-100' },
-              { label: 'NODE_V.106', val: 'ENDOTOXINS < 0.0239 EU/mg', pos: '-bottom-4 -left-4 md:bottom-0 md:left-0', color: 'text-primary', shadow: 'shadow-red-100' },
-              { label: 'NODE_V.107', val: 'QUANTITY 30.02mg', pos: '-bottom-4 -right-4 md:bottom-0 md:right-0', color: 'text-zinc-800', shadow: 'shadow-zinc-100' },
+              { label: 'NODE_V.104', val: 'PURITY 99.242%', pos: 'top-0 left-0', color: 'text-green-600', shadow: 'shadow-green-100' },
+              { label: 'NODE_V.105', val: 'STERILITY - NO GROWTH', pos: 'top-0 right-0', color: 'text-blue-600', shadow: 'shadow-blue-100' },
+              { label: 'NODE_V.106', val: 'ENDOTOXINS < 0.0239 EU/mg', pos: 'bottom-0 left-0', color: 'text-primary', shadow: 'shadow-red-100' },
+              { label: 'NODE_V.107', val: 'QUANTITY 30.02mg', pos: 'bottom-0 right-0', color: 'text-zinc-800', shadow: 'shadow-zinc-100' },
             ].map((node, i) => (
               <motion.div
                 key={i}
@@ -361,7 +340,7 @@ export default function MedicalCore() {
                   <div className="relative p-4 bg-white border border-black/5 rounded-2xl w-20 h-20 flex items-center justify-center shadow-inner overflow-hidden">
                     <div className="relative w-12 h-12 opacity-80">
                       <Image 
-                        src="/vial.png"
+                        src="/helivexproductlogo.png"
                         alt="Verified Peptide Batch Purity Certificate"
                         fill
                         className="object-contain"

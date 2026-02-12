@@ -68,7 +68,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl py-4 pl-12 pr-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
-                  placeholder="name@helivex.com"
+                  placeholder="name@helivexlabs.com"
                 />
               </div>
             </div>

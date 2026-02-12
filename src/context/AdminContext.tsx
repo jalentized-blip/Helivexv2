@@ -3,8 +3,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, products as initialProducts } from '@/data/products';
 import { Order, orders as initialOrders } from '@/data/orders';
-import { updateProducts } from '@/app/actions/updateProducts';
-import { updateOrders } from '@/app/actions/updateOrders';
+
+// import { updateProducts } from '@/app/actions/updateProducts';
+// import { updateOrders } from '@/app/actions/updateOrders';
 
 interface AdminContextType {
   isEditMode: boolean;
@@ -138,18 +139,12 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('helivex_orders', JSON.stringify(newOrders));
   };
 
-  const pushToLive = async () => {
-    try {
-      // Push both products and orders
-      const productResult = await updateProducts(products);
-      if (!productResult.success) return productResult;
-      
-      const orderResult = await updateOrders(orders);
-      return orderResult;
-    } catch (error) {
-      console.error('Failed to push updates to live:', error);
-      return { success: false, error: 'Failed to push updates' };
-    }
+  const pushToLive = async (): Promise<{ success: boolean; error?: string; message?: string }> => {
+    // Server actions are disabled in static export mode
+    return { 
+      success: false, 
+      error: 'Admin updates are not supported in static hosting mode. Please use Vercel for live editing.' 
+    };
   };
 
   return (

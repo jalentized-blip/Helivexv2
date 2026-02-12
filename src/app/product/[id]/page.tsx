@@ -6,8 +6,9 @@ type Props = {
   params: { id: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = products.find((p) => p.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     return {
@@ -27,6 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page({ params }: Props) {
+export async function generateStaticParams() {
+  return products.map((product) => ({
+    id: product.id,
+  }));
+}
+
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   return <ProductClient />;
 }

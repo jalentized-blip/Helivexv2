@@ -44,7 +44,7 @@ export default function ProductClient() {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
         <h1 className="text-2xl font-bold">Product not found</h1>
-        <Link href="/shop" className="text-primary hover:underline">Return to Shop</Link>
+        <Link href="/products" className="text-primary hover:underline">Return to Shop</Link>
       </div>
     );
   }
@@ -56,7 +56,7 @@ export default function ProductClient() {
         <nav className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-widest">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/shop" className="hover:text-primary transition-colors">Shop</Link>
+          <Link href="/products" className="hover:text-primary transition-colors">Shop</Link>
           <ChevronRight className="h-3 w-3" />
           <span className="text-foreground">{product.name}</span>
         </nav>
