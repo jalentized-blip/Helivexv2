@@ -219,13 +219,13 @@
                 <h2 class="text-5xl md:text-7xl font-black tracking-tighter">MOLECULAR <span class="text-primary italic">INTEGRITY.</span></h2>
             </div>
 
-            <div class="relative max-w-4xl mx-auto aspect-video flex items-center justify-center">
+            <div class="relative max-w-4xl mx-auto flex items-center justify-center min-h-[450px] md:min-h-[600px]">
                 <!-- Decorative Rings -->
-                <div class="absolute inset-0 border border-black/[0.03] rounded-full scale-110"></div>
-                <div class="absolute inset-0 border border-primary/5 rounded-full scale-125 animate-pulse"></div>
+                <div class="absolute inset-0 border border-black/[0.03] rounded-full scale-110 md:scale-125"></div>
+                <div class="absolute inset-0 border border-primary/5 rounded-full scale-125 md:scale-150 animate-pulse"></div>
                 
                 <!-- The Big Vial -->
-                <div id="vial-container" class="relative w-72 md:w-[420px] cursor-crosshair">
+                <div id="vial-container" class="relative w-[260px] sm:w-72 md:w-[420px] cursor-crosshair">
                     <!-- Tilted Vial Image -->
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/helivex-vial-red.png" 
                          alt="Helivex Research Vial" 
@@ -241,7 +241,7 @@
                     ?>
                     
                     <!-- Trigger 1: Purity (Top - Near Cap) -->
-                    <div id="dot1" class="vial-dot absolute group/dot1 z-30" style="top: <?php echo $saved_positions['dot1']['top']; ?>; left: <?php echo $saved_positions['dot1']['left']; ?>;">
+                    <div id="dot1" class="vial-dot absolute group/dot1 z-30 -translate-x-1/2 -translate-y-1/2" style="top: <?php echo $saved_positions['dot1']['top']; ?>; left: <?php echo $saved_positions['dot1']['left']; ?>;">
                         <div class="relative">
                             <div class="w-5 h-5 bg-primary rounded-full animate-ping absolute inset-0 opacity-40"></div>
                             <div class="w-5 h-5 bg-primary rounded-full relative border-2 border-white shadow-lg cursor-pointer"></div>
@@ -257,7 +257,7 @@
                     </div>
 
                     <!-- Trigger 2: Vacuum (Middle - Body) -->
-                    <div id="dot2" class="vial-dot absolute group/dot2 z-30" style="top: <?php echo $saved_positions['dot2']['top']; ?>; left: <?php echo $saved_positions['dot2']['left']; ?>;">
+                    <div id="dot2" class="vial-dot absolute group/dot2 z-30 -translate-x-1/2 -translate-y-1/2" style="top: <?php echo $saved_positions['dot2']['top']; ?>; left: <?php echo $saved_positions['dot2']['left']; ?>;">
                         <div class="relative">
                             <div class="w-5 h-5 bg-primary rounded-full animate-ping absolute inset-0 opacity-40"></div>
                             <div class="w-5 h-5 bg-primary rounded-full relative border-2 border-white shadow-lg cursor-pointer"></div>
@@ -272,7 +272,7 @@
                     </div>
 
                     <!-- Trigger 3: Cold Storage (Bottom - Base) -->
-                    <div id="dot3" class="vial-dot absolute group/dot3 z-30" style="top: <?php echo $saved_positions['dot3']['top']; ?>; left: <?php echo $saved_positions['dot3']['left']; ?>;">
+                    <div id="dot3" class="vial-dot absolute group/dot3 z-30 -translate-x-1/2 -translate-y-1/2" style="top: <?php echo $saved_positions['dot3']['top']; ?>; left: <?php echo $saved_positions['dot3']['left']; ?>;">
                         <div class="relative">
                             <div class="w-5 h-5 bg-primary rounded-full animate-ping absolute inset-0 opacity-40"></div>
                             <div class="w-5 h-5 bg-primary rounded-full relative border-2 border-white shadow-lg cursor-pointer"></div>
